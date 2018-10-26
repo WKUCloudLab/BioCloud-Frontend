@@ -1,0 +1,231 @@
+<div class="biocloud-background"></div>
+<div class="biocloud-header">
+  <div class="biocloud-header-title">Bio-Cloud</div>
+  <div class="biocloud-header-nav">
+    <a class="biocloud-header-nav-item" routerLink="/login" routerLinkActive="active">Login</a>
+    |
+    <a class="biocloud-header-nav-item" routerLink="/create-job" routerLinkActive="active">Create Job</a>
+  </div>
+</div>
+<div class="biocloud-content">
+  <div class="create-job-stage-track">
+    <table>
+      <tr>
+        <td>
+          <div class="stage-marker stage-active" id="stageMarker1">1</div>
+          <div class="stage-label">Select File</div>
+        </td>
+        <td>
+          <div class="stage-marker" id="stageMarker2">2</div>
+          <div class="stage-label">Select Tool</div>
+        </td>
+        <td>
+          <div class="stage-marker" id="stageMarker3">3</div>
+          <div class="stage-label">Configure Tool</div>
+        </td>
+        <td>
+          <div class="stage-marker" id="stageMarker4">4</div>
+          <div class="stage-label">Review Job</div>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div class="create-job-stage-container" id="stageContainer1">
+    <div class="create-job-stage-header">SELECT FILE</div>
+    <div class="create-job-stage-content">
+      <select class="create-job-file-select" id="fileSelect">
+        <option value="0">-- Select File --</option>
+        <ng-container *ngFor="let file of files; let i = index">
+          <option (value)="i"> {{ file.name }} </option>
+        </ng-container>
+      </select> 
+      
+      <span class="creat-job-stage-error hidden" id="pageError1"></span>
+    </div>
+    <div class="biocloud-page-divider"></div>
+    <div class="create-job-stage-footer">
+      <div class="create-job-footer-nav">
+        <button class="create-job-stage-next biocloud-button" (click)="selectFile()">Next Step</button>
+      </div>
+    </div>
+  </div>
+  <div class="create-job-stage-container hidden" id="stageContainer2">
+    <div class="create-job-stage-header">SELECT TOOL</div>
+    <div class="create-job-stage-content">
+      <select class="create-job-file-select" id="toolSelect" (change)="updateToolDescription()">
+        <option value="0">-- Select Tool --</option>
+        <ng-container *ngFor="let tool of tools; let i = index">
+          <ng-container *ngIf="checkFileType(tool)">
+            <option (value)="i"> {{ tool.name }} </option>
+          </ng-container>
+        </ng-container>
+      </select> 
+      <span class="create-job-stage-subtitle">Tool Description</span>
+      <p class="create-job-stage-paragraph center-text" id="toolDescription"> -- Please select a BioTool -- </p>
+      
+      <span class="creat-job-stage-error hidden" id="pageError2"></span>
+    </div>
+    <div class="biocloud-page-divider"></div>
+    <div class="create-job-stage-footer">
+      <div class="create-job-footer-nav">
+        <button class="create-job-stage-back biocloud-button" (click)="prevStage()">Back</button>
+        <button class="create-job-stage-next biocloud-button" (click)="selectTool()">Next Step</button>
+      </div>
+    </div>
+  </div>
+  <div class="create-job-stage-container hidden" id="stageContainer3">
+    <div class="create-job-stage-header">CONFIGURE TOOL</div>
+    <div class="create-job-stage-content">
+      <ng-container *ngIf="activeTool != null">
+        <ng-container *ngIf="activeTool.commands[0].command != 'DEFAULT'">
+          <select class="create-job-file-select" id="commandSelect" (change)="updateActiveCommand()">
+            <option value="0">-- Select Command --</option>
+            <ng-container *ngFor="let command of activeTool.commands; let i = index">
+              <option (value)="i"> {{ command.name }} </option>
+            </ng-container>
+          </select>
+        </ng-container>
+        <span class="create-job-stage-subtitle">Command Description</span>
+        <ng-container *ngIf="activeTool.commands[0].command != 'DEFAULT'">
+          <p class="create-job-stage-paragraph center-text" id="commandDescription"> -- Please select a command -- </p>
+        </ng-container>
+        <ng-container *ngIf="activeTool.commands[0].command == 'DEFAULT'">
+          <p class="create-job-stage-paragraph center-text" id="commandDescription"> {{ activeTool.advancedDescription }} </p>
+        </ng-container>
+
+        <div class="biocloud-page-divider"></div>
+
+        <ng-container *ngIf="activeCommand != null">
+          <ng-container *ngIf="activeCommand.requiredArguments.length > 0">
+            <span class="create-job-stage-title">Required Arguments</span>
+            <table class="create-job-argument-table">
+              <ng-container *ngFor="let argument of activeCommand.requiredArguments">
+                <tr>
+                  <td>
+                      <span class="create-job-stage-subtitle"> {{ argument.name }} </span>
+                      <p class="create-job-stage-paragraph"> {{ argument.advancedDescription }} </p>   
+                      <ng-container *ngIf="argument.dependencies != null">
+                        <p class="create-job-stage-paragraph-label"> Dependencies </p>  
+                        <ng-container *ngFor="let dependence of argument.dependencies">
+                          <p class="create-job-stage-paragraph"> {{ dependence }} </p>
+                        </ng-container>
+                      </ng-container>
+
+                      <ng-container *ngIf="argument.inputType == 'boolean'">
+                        <select class="create-job-file-select" [attr.id]="'requiredOptionSelect' + argument.argument">
+                          <option value="0">False</option>
+                          <option value="1">True</option>
+                        </select>
+                      </ng-container>
+
+                      <ng-container *ngIf="argument.inputType == 'selection'">
+                        <select class="create-job-file-select" [attr.id]="'requiredOptionSelect' + argument.argument">
+                          <ng-container *ngFor="let option of argument.options; let i = index">
+                            <option (value)="i"> {{ option.name }} </option>
+                          </ng-container>
+                        </select>
+                      </ng-container>
+                    </td>
+                </tr>
+              </ng-container>
+            </table>
+          </ng-container>
+
+          <ng-container *ngIf="activeCommand.requiredArguments.length > 0 && activeCommand.optionalArguments.length > 0">
+            <div class="biocloud-page-divider"></div>
+          </ng-container>
+
+          <ng-container *ngIf="activeCommand.optionalArguments.length > 0">
+            <span class="create-job-stage-title">Optional Arguments</span>
+            <table class="create-job-argument-table">
+                <ng-container *ngFor="let argument of activeCommand.optionalArguments">
+                  <tr>
+                    <td>
+                      <span class="create-job-stage-subtitle"> {{ argument.name }} </span>
+                      <p class="create-job-stage-paragraph"> {{ argument.advancedDescription }} </p>   
+                      <ng-container *ngIf="argument.dependencies != null">
+                        <p class="create-job-stage-paragraph-label"> Dependencies </p>  
+                        <ul class="create-job-dependencies">
+                        <ng-container *ngFor="let dependence of argument.dependencies">
+                          <li><p class="create-job-stage-paragraph"> {{ dependence }} </p></li>
+                        </ng-container>
+                        </ul>
+                      </ng-container>
+
+                      <ng-container *ngIf="argument.inputType == 'boolean'">
+                        <select class="create-job-file-select" [attr.id]="'optionalOptionSelect' + argument.argument">
+                          <option value="0">-- Select Option --</option>
+                          <option value="1">False</option>
+                          <option value="2">True</option>
+                        </select>
+                      </ng-container>
+
+                      <ng-container *ngIf="argument.inputType == 'selection'">
+                        <select class="create-job-file-select" [attr.id]="'optionalOptionSelect' + argument.argument">
+                          <option value="0">-- Select Option --</option>
+                          <ng-container *ngFor="let option of argument.options; let i = index">
+                            <option (value)="i+1"> {{ option }} </option>
+                          </ng-container>
+                        </select>
+                      </ng-container>
+                    </td>
+                  </tr>
+                </ng-container>
+            </table>
+          </ng-container>
+
+          <ng-container *ngIf="activeCommand.conflictingArguments.length > 0">
+              <div class="biocloud-page-divider"></div>
+              <span class="create-job-stage-title">Conflicting Arguments</span>
+              <p class="create-job-stage-paragraph"> These arguments cannot be run together and so a job cannot be submitted if both are selected. </p>   
+              <ul class="create-job-dependencies">
+              <ng-container *ngFor="let conflictingArguments of activeCommand.conflictingArguments">
+                <li><p class="create-job-stage-paragraph"> {{ conflictingArguments[0] }} and {{ conflictingArguments[1] }} </p></li>
+              </ng-container>
+              </ul>
+          </ng-container>
+        </ng-container>
+
+        <span class="creat-job-stage-error hidden" id="pageError3">You must select an option for all required arguments!</span>
+      </ng-container>
+    </div>
+    <div class="biocloud-page-divider"></div>
+    <div class="create-job-stage-footer">
+      <div class="create-job-footer-nav">
+        <button class="create-job-stage-back biocloud-button" (click)="prevStage()">Back</button>
+        <button class="create-job-stage-next biocloud-button" (click)="submitStage()">Next Step</button>
+      </div>
+    </div>
+  </div>
+  <div class="create-job-stage-container hidden" id="stageContainer4">
+    <div class="create-job-stage-header">REVIEW JOB</div>
+    <div class="create-job-stage-content">
+      <span class="create-job-stage-subtitle">Selected File</span>
+      <ng-container *ngIf="activeFile != null">
+        <p class="create-job-stage-paragraph"> {{ activeFile.name }} </p>
+      </ng-container>
+      <div class="biocloud-page-divider"></div>
+      <ng-container *ngFor="let stage of jobStages; let i = index">
+        <span class="create-job-stage-subtitle">
+          Stage {{ i + 1 }} - '{{ stage.script.name }}'
+          <ng-container *ngIf="stage.command.id != null">
+            {{ stage.command.name }}
+          </ng-container>
+        </span>
+        <ul>
+          <ng-container *ngFor="let argument of stage.arguments">
+            <li> {{ argument.command }} - {{ argument.option }}</li>
+          </ng-container>
+        </ul>
+        <div class="biocloud-page-divider"></div>
+      </ng-container>
+    </div>
+    <div class="biocloud-page-divider"></div>
+    <div class="create-job-stage-footer">
+      <div class="create-job-footer-nav">
+        <button class="create-job-stage-back biocloud-button" (click)="addAnotherStep()">Add Another Step</button>
+        <button class="create-job-stage-next biocloud-button" (click)="submitJobs()">Submit Job</button>
+      </div>
+    </div>
+  </div>
+</div>
