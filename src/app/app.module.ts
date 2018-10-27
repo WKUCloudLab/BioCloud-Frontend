@@ -10,7 +10,7 @@ import { LoginComponent } from './login/login.component';
 import { CreateJobComponent } from './create-job/create-job.component';
 
 const appRoutes: Routes = [
-  { path: 'login', component: LoginComponent },
+  { path: '', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'create-job', component: CreateJobComponent },
 ];
