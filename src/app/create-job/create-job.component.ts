@@ -20,23 +20,9 @@ export class CreateJobComponent implements OnInit {
   files = [
     {
       id: '1',
-      name: 'file1.jpg',
-      type: 'jpg',
+      name: 'ERR000044_1.fastq',
+      type: 'fastq',
       size: 1234,
-      created: "2016-03-03 01:01:01"
-    },
-    {
-      id: '2',
-      name: 'file2.png',
-      type: 'png',
-      size: 275,
-      created: "2016-03-03 01:01:01"
-    },
-    {
-      id: '3',
-      name: 'file3.txt',
-      type: 'txt',
-      size: 10,
       created: "2016-03-03 01:01:01"
     },
   ];
@@ -49,8 +35,7 @@ export class CreateJobComponent implements OnInit {
       basicDescription: "FastQC is a Biotool used for verifying raw sequencing data.",
       advancedDescription: "FastQC aims to provide a simple way to do some quality control checks on raw sequence data coming from high throughput sequencing pipelines. It provides a modular set of analyses which you can use to give a quick impression of whether your data has any problems of which you should be aware before doing any further analysis.",
       fileTypes: [
-        "jpg",
-        "png"
+        "fastq",
       ],
       commands:[
         {

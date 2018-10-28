@@ -1,54 +1,54 @@
-<div class="biocloud-background"></div>
-<div class="biocloud-header">
-  <div class="biocloud-header-title">Bio-Cloud</div>
-  <div class="biocloud-header-nav">
-    <a class="biocloud-header-nav-item" routerLink="/login" routerLinkActive="active">Login</a>
-    |
-    <a class="biocloud-header-nav-item" routerLink="/create-job" routerLinkActive="active">Create Job</a>
+<div class="bio-main-content">
+  <div class="bio-card">
+    <div class="bio-card-content">
+      <table class="createjob-stage-track">
+        <tr>
+          <td>
+            <div class="stage-marker stage-active" id="stageMarker1">1</div>
+            <div class="stage-label">Select File</div>
+          </td>
+          <td>
+            <div class="stage-marker" id="stageMarker2">2</div>
+            <div class="stage-label">Select Tool</div>
+          </td>
+          <td>
+            <div class="stage-marker" id="stageMarker3">3</div>
+            <div class="stage-label">Configure Tool</div>
+          </td>
+          <td>
+            <div class="stage-marker" id="stageMarker4">4</div>
+            <div class="stage-label">Review Job</div>
+          </td>
+        </tr>
+      </table>
+    </div>
   </div>
-</div>
-<div class="biocloud-content">
-  <div class="create-job-stage-track">
-    <table>
-      <tr>
-        <td>
-          <div class="stage-marker stage-active" id="stageMarker1">1</div>
-          <div class="stage-label">Select File</div>
-        </td>
-        <td>
-          <div class="stage-marker" id="stageMarker2">2</div>
-          <div class="stage-label">Select Tool</div>
-        </td>
-        <td>
-          <div class="stage-marker" id="stageMarker3">3</div>
-          <div class="stage-label">Configure Tool</div>
-        </td>
-        <td>
-          <div class="stage-marker" id="stageMarker4">4</div>
-          <div class="stage-label">Review Job</div>
-        </td>
-      </tr>
-    </table>
-  </div>
-  <div class="create-job-stage-container" id="stageContainer1">
-    <div class="create-job-stage-header">SELECT FILE</div>
-    <div class="create-job-stage-content">
+
+
+
+  <div class="bio-card" id="stageContainer1">
+    <div class="bio-card-header">
+      <div class="bio-header">SELECT FILE</div>
+    </div>
+    <div class="bio-card-content">
       <select class="create-job-file-select" id="fileSelect">
         <option value="0">-- Select File --</option>
         <ng-container *ngFor="let file of files; let i = index">
           <option (value)="i"> {{ file.name }} </option>
         </ng-container>
       </select> 
-      
+        
       <span class="creat-job-stage-error hidden" id="pageError1"></span>
     </div>
-    <div class="biocloud-page-divider"></div>
-    <div class="create-job-stage-footer">
-      <div class="create-job-footer-nav">
-        <button class="create-job-stage-next biocloud-button" (click)="selectFile()">Next Step</button>
-      </div>
+    <div class="bio-card-divider"></div>
+    <div class="bio-card-footer">
+      <button class="bio-button right" (click)="selectFile()">Next Step</button>
+      <span class="clear"></span>
     </div>
   </div>
+
+
+
   <div class="create-job-stage-container hidden" id="stageContainer2">
     <div class="create-job-stage-header">SELECT TOOL</div>
     <div class="create-job-stage-content">
@@ -65,7 +65,7 @@
       
       <span class="creat-job-stage-error hidden" id="pageError2"></span>
     </div>
-    <div class="biocloud-page-divider"></div>
+    <div class="bio-divider"></div>
     <div class="create-job-stage-footer">
       <div class="create-job-footer-nav">
         <button class="create-job-stage-back biocloud-button" (click)="prevStage()">Back</button>
@@ -73,6 +73,9 @@
       </div>
     </div>
   </div>
+
+
+
   <div class="create-job-stage-container hidden" id="stageContainer3">
     <div class="create-job-stage-header">CONFIGURE TOOL</div>
     <div class="create-job-stage-content">
@@ -93,7 +96,7 @@
           <p class="create-job-stage-paragraph center-text" id="commandDescription"> {{ activeTool.advancedDescription }} </p>
         </ng-container>
 
-        <div class="biocloud-page-divider"></div>
+        <div class="bio-divider"></div>
 
         <ng-container *ngIf="activeCommand != null">
           <ng-container *ngIf="activeCommand.requiredArguments.length > 0">
@@ -132,7 +135,7 @@
           </ng-container>
 
           <ng-container *ngIf="activeCommand.requiredArguments.length > 0 && activeCommand.optionalArguments.length > 0">
-            <div class="biocloud-page-divider"></div>
+            <div class="bio-divider"></div>
           </ng-container>
 
           <ng-container *ngIf="activeCommand.optionalArguments.length > 0">
@@ -175,7 +178,7 @@
           </ng-container>
 
           <ng-container *ngIf="activeCommand.conflictingArguments.length > 0">
-              <div class="biocloud-page-divider"></div>
+              <div class="bio-divider"></div>
               <span class="create-job-stage-title">Conflicting Arguments</span>
               <p class="create-job-stage-paragraph"> These arguments cannot be run together and so a job cannot be submitted if both are selected. </p>   
               <ul class="create-job-dependencies">
@@ -189,7 +192,7 @@
         <span class="creat-job-stage-error hidden" id="pageError3">You must select an option for all required arguments!</span>
       </ng-container>
     </div>
-    <div class="biocloud-page-divider"></div>
+    <div class="bio-divider"></div>
     <div class="create-job-stage-footer">
       <div class="create-job-footer-nav">
         <button class="create-job-stage-back biocloud-button" (click)="prevStage()">Back</button>
@@ -204,7 +207,7 @@
       <ng-container *ngIf="activeFile != null">
         <p class="create-job-stage-paragraph"> {{ activeFile.name }} </p>
       </ng-container>
-      <div class="biocloud-page-divider"></div>
+      <div class="bio-divider"></div>
       <ng-container *ngFor="let stage of jobStages; let i = index">
         <span class="create-job-stage-subtitle">
           Stage {{ i + 1 }} - '{{ stage.script.name }}'
@@ -217,10 +220,10 @@
             <li> {{ argument.command }} - {{ argument.option }}</li>
           </ng-container>
         </ul>
-        <div class="biocloud-page-divider"></div>
+        <div class="bio-divider"></div>
       </ng-container>
     </div>
-    <div class="biocloud-page-divider"></div>
+    <div class="bio-divider"></div>
     <div class="create-job-stage-footer">
       <div class="create-job-footer-nav">
         <button class="create-job-stage-back biocloud-button" (click)="addAnotherStep()">Add Another Step</button>

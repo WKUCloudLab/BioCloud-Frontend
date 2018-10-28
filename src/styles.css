@@ -1,79 +1,36 @@
+/*
+    Colors:
+
+    Background Fade 1: #00BFFF (Sky Blue)
+    Background Fade 2: #9ae5ff
+
+    Background Color: #fff;
+    Inactive Color: #ccc
+    Text Color: #333;
+        
+    Highlight Color: #00ace6; 
+*/
+
+/*
+    Modified Base Styles
+*/
+
 body {
-    background-color: #ccc;
+    background-color: transparent;
     margin: 0 !important;
     padding: 0 !important;
     color: #333;
     font-family: 'Roboto', sans-serif;
-    background-image: linear-gradient(#00BFFF, #fff);
-}
-
-.biocloud-background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    background-image: linear-gradient(#00BFFF, #fff);
-    height: 100vh;
-    width: 100vw;
-    z-index: -1;
-}
-
-.biocloud-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 80px;
-    width: 100%;
-    background-color: #fff;
-    box-shadow: 0px 5px 10px 0px #aaaaaa;
-}
-
-.biocloud-header-title {
-    float: left;
-    line-height: 80px;
-    margin-left: 20px;
-    font-size: 35px;
-    font-weight: 500;
-}
-
-.biocloud-header-nav {
-    float: right;
-    line-height: 80px;
-    margin-right: 20px;
-    font-size: 18px;
-    color: #00BFFF;
-}
-
-.biocloud-header-nav-item {
-    text-decoration: none;
-}
-
-.biocloud-header-nav-item:hover {
-    cursor: pointer;
-    text-decoration: underline;
-}
-
-.biocloud-header-nav-item:visited {
-    color: #00BFFF;
-}
-
-.biocloud-content {
-    margin-top: 80px;
-    padding-top: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
 }
 
 select {
     cursor: pointer;
     font-family: 'Roboto', sans-serif;
-    background-color: #00BFFF;
+    background-color: #00ace6;
     color: #fff;
     border: 0;
     padding: 10px;
 }
-
 select:after {
     transition: all 0.2s ease-in;
     position: absolute;
@@ -84,21 +41,162 @@ select:after {
     height: 0;
     border: 0;
 }
-
 select:hover {
     transition: all 0.2s ease-in;
     background-color: #00ace6;
     border: 0;
 }
-
 select:active {
     transition: all 0.2s ease-in;
     background-color: #00ace6;
     border: 0;
 }
 
-.biocloud-page-divider {
+/*
+    Custom Utility Styles
+*/
+
+.hidden {
+    display: none !important;
+}
+
+.center-text {
+    text-align: center !important;
+}
+
+.right {
+    float: right;
+}
+
+.left {
+    float: left;
+}
+
+.clear {
+    clear: both; 
+    display: block;
+}
+
+/*
+    Custom Design Styles
+*/
+
+.bio-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-image: linear-gradient(#00BFFF, #9ae5ff);
+    height: 100vh;
+    width: 100vw;
+    z-index: -1;
+}
+
+.bio-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 80px;
+    width: 100%;
+    background-color: #fff;
+    -webkit-box-shadow: 0px 2px 1px 1px rgba(0,0,0,0.2);
+    -moz-box-shadow: 0px 2px 1px 1px rgba(0,0,0,0.2);
+    box-shadow: 0px 2px 1px 1px rgba(0,0,0,0.2);
+}
+
+.bio-navbar-title {
+    float: left;
+    line-height: 80px;
+    margin-left: 20px;
+    font-size: 35px;
+    font-weight: 500;
+}
+
+.bio-navbar-link {
+    height: 100%;
+    width: auto;
+    padding: 0 20px;
+    font-weight: 500;
+    line-height: 80px;
+    font-size: 16px;
+    color: #666;
+    display: inline-block;
+    text-decoration: none !important;
+}
+.bio-navbar-link:hover {
+    cursor: pointer;
+    background-color: #eee;
+}
+.bio-navbar-link:visited {
+    color: #333;
+    text-decoration: none;
+}
+
+.bio-main-content {
+    display: block;
+    padding: 0 5px;
+    margin: 90px auto 20px auto; /* 80px for the header and 10px for added spacing. */
+    max-width: 600px;
+}
+
+.bio-divider {
     margin: 20px auto;
     width: 100%;
     border-bottom: 1px solid #ccc;
 }
+
+.bio-header {
+    color: #555;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.bio-button {
+    border-radius: 3px;
+    border: 2px solid #00ace6;
+    color: #00ace6;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    background-color: transparent;
+}
+
+.bio-button:hover {
+    cursor: pointer;
+    background-color: #eee;
+}
+
+/*
+    Bio Cards
+*/
+
+.bio-card {
+    display: block;
+    height: auto;
+    margin-bottom: 10px;
+    overflow: hidden;
+    border-radius: 3px;
+    background-color: #fff;
+    -webkit-box-shadow: 0px 2px 1px 1px rgba(0,0,0,0.2);
+    -moz-box-shadow: 0px 2px 1px 1px rgba(0,0,0,0.2);
+    box-shadow: 0px 2px 1px 1px rgba(0,0,0,0.2);
+}
+
+.bio-card-header {
+    padding: 10px;
+}
+
+.bio-card-content {
+    padding: 10px;
+}
+
+.bio-card-footer {
+    padding: 10px;
+}
+
+.bio-card-divider {
+    width: calc(100% - 20px);
+    margin: 0 auto;
+    border-bottom: 1px solid #ccc;
+}
+
+
