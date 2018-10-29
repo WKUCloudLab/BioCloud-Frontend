@@ -1,0 +1,12 @@
+<div class="bio-main-content">
+  <ng-container *ngIf="jobs != null">
+    <div class="bio-card" *ngFor="let job of jobs">
+      <div class="bio-card-header">
+        <span class="bio-header"> {{ job.title }} </span>
+      </div>
+      <div class="bio-card-content">
+        {{ job.content }}
+      </div>
+    </div>
+  </ng-container>
+</div>

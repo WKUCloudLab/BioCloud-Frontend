@@ -24,11 +24,60 @@
     </div>
   </div>
 
+  <div class="bio-card">
+    <div class="bio-card-header">
+      <span class="bio-header">CREATE NEW JOB</span>
+    </div>
+    <div class="bio-card-content">
+      <span class="bio-subheader"><span>Job Details</span></span>
+      <div class="bio-row small-padding margin-bottom">
+        <div class="bio-item fourth">
+          <span class="bio-input-label">Name</span>
+        </div>
+        <div class="bio-item three-fourths">
+          <input type="textbox" class="bio-textbox right">
+        </div>
+      </div>
+
+      <!--
+      <div class="bio-divider"></div>
+      -->
+
+      <div class="bio-row small-padding margin-bottom">
+        <div class="bio-item fourth">
+          <span class="bio-input-label">File</span>
+        </div>
+        <div class="bio-item three-fourths">
+          <div class="bio-item half">
+              <ng-container *ngIf="activeFile != null"> {{ activeFile }} </ng-container>
+              <ng-container *ngIf="activeFile == null"> --Select a File-- </ng-container>
+          </div>
+          <div class="bio-item half">
+            <button class="bio-button full"> Select File </button>
+          </div>
+        </div>
+      </div>
+
+      <!--
+      <div class="bio-divider"></div>
+      -->
+
+      <span class="bio-subheader"><span>Job Stages</span></span>
+      
+    </div>
+    <div class="bio-card-divider"></div>
+    <div class="bio-card-footer">
+      <button class="bio-button left">Add Another Stage</button>
+      <button class="bio-button right">Submit Job</button>
+      <span class="clear"></span>
+    </div>
+  </div>
+
 
 
   <div class="bio-card" id="stageContainer1">
     <div class="bio-card-header">
-      <div class="bio-header">SELECT FILE</div>
+      <span class="bio-header">SELECT FILE</span>
     </div>
     <div class="bio-card-content">
       <select class="create-job-file-select" id="fileSelect">

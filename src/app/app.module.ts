@@ -8,10 +8,12 @@ import { AppComponent } from './app.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { CreateJobComponent } from './create-job/create-job.component';
+import { HomePageComponent } from './home-page/home-page.component';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'home-page', component: HomePageComponent },
   { path: 'create-job', component: CreateJobComponent },
 ];
 
@@ -20,7 +22,8 @@ const appRoutes: Routes = [
     AppComponent,
     RegisterComponent,
     LoginComponent,
-    CreateJobComponent
+    CreateJobComponent,
+    HomePageComponent
   ],
   imports: [
     RouterModule.forRoot(

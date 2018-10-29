@@ -78,6 +78,34 @@ select:active {
 }
 
 /*
+    Widths
+*/
+
+.fourth {
+    width: 25%;
+}
+
+.third {
+    width: 33.33%;
+}
+
+.half {
+    width: 50%;
+}
+
+.two-thirds {
+    width: 66.66%;
+}
+
+.three-fourths {
+    width: 75%;
+}
+
+.full {
+    width: 90%;
+}
+
+/*
     Custom Design Styles
 */
 
@@ -150,6 +178,47 @@ select:active {
     font-weight: 500;
 }
 
+/*
+.bio-subheader {
+    display: block;
+    width: 100%;
+    color: #555;
+    font-size: 14px;
+    font-weight: 500;
+    height: 7px;
+    border-bottom: 1px solid #aaa;
+}
+.bio-subheader:after {
+    background-color: #fff;
+    height: 14px;
+}
+*/
+
+.bio-subheader {
+    display: block;
+    height: 7px;
+    width: 100%;
+    color: #555;
+    font-size: 14px;
+    text-align: center;
+    border-bottom: 1px solid #aaa;
+    margin-bottom: 17px;
+}
+.bio-subheader span {
+    background-color: #fff;
+    padding: 0 5px;
+}
+
+.bio-input-label {
+    display: block;
+    width: calc(100% - 20px);
+    padding: 0 10px;
+    text-align: right;
+    color: #666;
+    font-size: 16px;
+    font-weight: 500;
+}
+
 .bio-button {
     border-radius: 3px;
     border: 2px solid #00ace6;
@@ -163,6 +232,33 @@ select:active {
 .bio-button:hover {
     cursor: pointer;
     background-color: #eee;
+}
+
+.bio-textbox {
+    border: 0;
+    border-bottom: 1px solid #aaa;
+    width: calc(100% - 20px);
+    height: 40px;
+    font-size: 16px;
+    padding: 0 10px;
+    color: #555;
+}
+
+.bio-textbox:focus {
+    border: 0;
+    border-bottom: 1px solid #aaa;
+    background-color: #eee;
+    outline-width: 0;
+}
+
+.bio-item {
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.margin-bottom {
+    margin-bottom: 20px;
 }
 
 /*
@@ -183,10 +279,11 @@ select:active {
 
 .bio-card-header {
     padding: 10px;
+    padding-bottom: 0;
 }
 
 .bio-card-content {
-    padding: 10px;
+    padding: 10px 30px;
 }
 
 .bio-card-footer {

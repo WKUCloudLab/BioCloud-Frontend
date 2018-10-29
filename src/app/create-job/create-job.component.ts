@@ -15,7 +15,7 @@ export class CreateJobComponent implements OnInit {
   activeTool = null;
   activeCommand = null;
 
-  jobStages = [];
+  jobStages = [];  
 
   files = [
     {
