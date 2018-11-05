@@ -64,6 +64,26 @@ select:active {
     text-align: center !important;
 }
 
+.left-text {
+    text-align: left !important;
+}
+
+.right-text {
+    text-align: right !important;
+}
+
+.vertical-top {
+    vertical-align: top !important;
+}
+
+.vertical-middle {
+    vertical-align: middle !important;
+}
+
+.vertical-bottom {
+    vertical-align: bottom !important;
+}
+
 .right {
     float: right;
 }
@@ -103,6 +123,10 @@ select:active {
 
 .full {
     width: 90%;
+}
+
+.max {
+    width: 100%;
 }
 
 /*
@@ -172,41 +196,44 @@ select:active {
     border-bottom: 1px solid #ccc;
 }
 
-.bio-header {
+.bio-title {
     color: #555;
     font-size: 20px;
     font-weight: 500;
 }
 
-/*
+.bio-header {
+    display: block;
+    color: #555;
+    font-size: 16px;
+    font-weight: 500;
+}
+
 .bio-subheader {
     display: block;
-    width: 100%;
     color: #555;
     font-size: 14px;
     font-weight: 500;
-    height: 7px;
-    border-bottom: 1px solid #aaa;
 }
-.bio-subheader:after {
-    background-color: #fff;
-    height: 14px;
-}
-*/
 
-.bio-subheader {
+.bio-divide-header {
     display: block;
     height: 7px;
     width: 100%;
     color: #555;
     font-size: 14px;
     text-align: center;
-    border-bottom: 1px solid #aaa;
+    font-weight: 500;
+    border-bottom: 2px solid #aaa;
     margin-bottom: 17px;
 }
-.bio-subheader span {
+.bio-divide-header span {
     background-color: #fff;
     padding: 0 5px;
+}
+
+.bio-paragraph {
+    font-size: 14px;
 }
 
 .bio-input-label {
@@ -234,6 +261,16 @@ select:active {
     background-color: #eee;
 }
 
+.green-button {
+    border-color: #4CAF50;
+    color: #4CAF50;
+}
+
+.red-button {
+    border-color: #f44336;
+    color: #f44336;
+}
+
 .bio-textbox {
     border: 0;
     border-bottom: 1px solid #aaa;
@@ -251,14 +288,35 @@ select:active {
     outline-width: 0;
 }
 
+.bio-row {
+    display: block;
+}
+
 .bio-item {
     display: inline-block;
     vertical-align: middle;
     text-align: center;
 }
 
+.bio-list {
+    margin: 0;
+    margin-bottom: 10px;
+    padding-left: 20px;
+}
+
+.bio-error {
+    display: block;
+    color: #d13838;
+    text-align: center;
+    margin: 20px 0;
+}
+
 .margin-bottom {
-    margin-bottom: 20px;
+    margin-bottom: 20px !important;
+}
+
+.soft-margin {
+    margin: 2px;
 }
 
 /*

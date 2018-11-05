@@ -1,35 +1,10 @@
 <div class="bio-main-content">
-  <div class="bio-card">
-    <div class="bio-card-content">
-      <table class="createjob-stage-track">
-        <tr>
-          <td>
-            <div class="stage-marker stage-active" id="stageMarker1">1</div>
-            <div class="stage-label">Select File</div>
-          </td>
-          <td>
-            <div class="stage-marker" id="stageMarker2">2</div>
-            <div class="stage-label">Select Tool</div>
-          </td>
-          <td>
-            <div class="stage-marker" id="stageMarker3">3</div>
-            <div class="stage-label">Configure Tool</div>
-          </td>
-          <td>
-            <div class="stage-marker" id="stageMarker4">4</div>
-            <div class="stage-label">Review Job</div>
-          </td>
-        </tr>
-      </table>
-    </div>
-  </div>
-
-  <div class="bio-card">
+  <div class="bio-card" *ngIf="activeWindow == 'Job Receipt'">
     <div class="bio-card-header">
-      <span class="bio-header">CREATE NEW JOB</span>
+      <span class="bio-title">CREATE NEW JOB</span>
     </div>
     <div class="bio-card-content">
-      <span class="bio-subheader"><span>Job Details</span></span>
+      <span class="bio-divide-header"><span>Job Details</span></span>
       <div class="bio-row small-padding margin-bottom">
         <div class="bio-item fourth">
           <span class="bio-input-label">Name</span>
@@ -39,15 +14,18 @@
         </div>
       </div>
 
-      <!--
-      <div class="bio-divider"></div>
-      -->
-
       <div class="bio-row small-padding margin-bottom">
         <div class="bio-item fourth">
           <span class="bio-input-label">File</span>
         </div>
         <div class="bio-item three-fourths">
+            <select class="create-job-file-select" id="fileSelect" (change)="selectFile()">
+              <option value="0">-- Select File --</option>
+              <ng-container *ngFor="let file of files; let i = index">
+                <option (value)="i"> {{ file.name }} </option>
+              </ng-container>
+            </select> 
+          <!--
           <div class="bio-item half">
               <ng-container *ngIf="activeFile != null"> {{ activeFile }} </ng-container>
               <ng-container *ngIf="activeFile == null"> --Select a File-- </ng-container>
@@ -55,229 +33,236 @@
           <div class="bio-item half">
             <button class="bio-button full"> Select File </button>
           </div>
+          -->
         </div>
       </div>
 
-      <!--
-      <div class="bio-divider"></div>
-      -->
-
-      <span class="bio-subheader"><span>Job Stages</span></span>
-      
-    </div>
-    <div class="bio-card-divider"></div>
-    <div class="bio-card-footer">
-      <button class="bio-button left">Add Another Stage</button>
-      <button class="bio-button right">Submit Job</button>
-      <span class="clear"></span>
-    </div>
-  </div>
-
-
-
-  <div class="bio-card" id="stageContainer1">
-    <div class="bio-card-header">
-      <span class="bio-header">SELECT FILE</span>
-    </div>
-    <div class="bio-card-content">
-      <select class="create-job-file-select" id="fileSelect">
-        <option value="0">-- Select File --</option>
-        <ng-container *ngFor="let file of files; let i = index">
-          <option (value)="i"> {{ file.name }} </option>
-        </ng-container>
-      </select> 
-        
-      <span class="creat-job-stage-error hidden" id="pageError1"></span>
-    </div>
-    <div class="bio-card-divider"></div>
-    <div class="bio-card-footer">
-      <button class="bio-button right" (click)="selectFile()">Next Step</button>
-      <span class="clear"></span>
-    </div>
-  </div>
-
-
-
-  <div class="create-job-stage-container hidden" id="stageContainer2">
-    <div class="create-job-stage-header">SELECT TOOL</div>
-    <div class="create-job-stage-content">
-      <select class="create-job-file-select" id="toolSelect" (change)="updateToolDescription()">
-        <option value="0">-- Select Tool --</option>
-        <ng-container *ngFor="let tool of tools; let i = index">
-          <ng-container *ngIf="checkFileType(tool)">
-            <option (value)="i"> {{ tool.name }} </option>
-          </ng-container>
-        </ng-container>
-      </select> 
-      <span class="create-job-stage-subtitle">Tool Description</span>
-      <p class="create-job-stage-paragraph center-text" id="toolDescription"> -- Please select a BioTool -- </p>
-      
-      <span class="creat-job-stage-error hidden" id="pageError2"></span>
-    </div>
-    <div class="bio-divider"></div>
-    <div class="create-job-stage-footer">
-      <div class="create-job-footer-nav">
-        <button class="create-job-stage-back biocloud-button" (click)="prevStage()">Back</button>
-        <button class="create-job-stage-next biocloud-button" (click)="selectTool()">Next Step</button>
-      </div>
-    </div>
-  </div>
-
-
-
-  <div class="create-job-stage-container hidden" id="stageContainer3">
-    <div class="create-job-stage-header">CONFIGURE TOOL</div>
-    <div class="create-job-stage-content">
-      <ng-container *ngIf="activeTool != null">
-        <ng-container *ngIf="activeTool.commands[0].command != 'DEFAULT'">
-          <select class="create-job-file-select" id="commandSelect" (change)="updateActiveCommand()">
-            <option value="0">-- Select Command --</option>
-            <ng-container *ngFor="let command of activeTool.commands; let i = index">
-              <option (value)="i"> {{ command.name }} </option>
-            </ng-container>
-          </select>
-        </ng-container>
-        <span class="create-job-stage-subtitle">Command Description</span>
-        <ng-container *ngIf="activeTool.commands[0].command != 'DEFAULT'">
-          <p class="create-job-stage-paragraph center-text" id="commandDescription"> -- Please select a command -- </p>
-        </ng-container>
-        <ng-container *ngIf="activeTool.commands[0].command == 'DEFAULT'">
-          <p class="create-job-stage-paragraph center-text" id="commandDescription"> {{ activeTool.advancedDescription }} </p>
-        </ng-container>
-
-        <div class="bio-divider"></div>
-
-        <ng-container *ngIf="activeCommand != null">
-          <ng-container *ngIf="activeCommand.requiredArguments.length > 0">
-            <span class="create-job-stage-title">Required Arguments</span>
-            <table class="create-job-argument-table">
-              <ng-container *ngFor="let argument of activeCommand.requiredArguments">
-                <tr>
-                  <td>
-                      <span class="create-job-stage-subtitle"> {{ argument.name }} </span>
-                      <p class="create-job-stage-paragraph"> {{ argument.advancedDescription }} </p>   
-                      <ng-container *ngIf="argument.dependencies != null">
-                        <p class="create-job-stage-paragraph-label"> Dependencies </p>  
-                        <ng-container *ngFor="let dependence of argument.dependencies">
-                          <p class="create-job-stage-paragraph"> {{ dependence }} </p>
-                        </ng-container>
-                      </ng-container>
-
-                      <ng-container *ngIf="argument.inputType == 'boolean'">
-                        <select class="create-job-file-select" [attr.id]="'requiredOptionSelect' + argument.argument">
-                          <option value="0">False</option>
-                          <option value="1">True</option>
-                        </select>
-                      </ng-container>
-
-                      <ng-container *ngIf="argument.inputType == 'selection'">
-                        <select class="create-job-file-select" [attr.id]="'requiredOptionSelect' + argument.argument">
-                          <ng-container *ngFor="let option of argument.options; let i = index">
-                            <option (value)="i"> {{ option.name }} </option>
-                          </ng-container>
-                        </select>
-                      </ng-container>
-                    </td>
-                </tr>
-              </ng-container>
-            </table>
-          </ng-container>
-
-          <ng-container *ngIf="activeCommand.requiredArguments.length > 0 && activeCommand.optionalArguments.length > 0">
+      <span class="bio-divide-header"><span>Job Stages</span></span>
+      <ng-container *ngIf="jobStages.length == 0 || jobStages == null">
+        <span class="bio-item max margin-bottom">-- Please Add A Stage --</span>
+      </ng-container>
+      <ng-container *ngIf="jobStages.length != 0">
+        <ng-container *ngFor="let stage of jobStages; let i = index">
+          <ng-container *ngIf="i != 0">
             <div class="bio-divider"></div>
           </ng-container>
-
-          <ng-container *ngIf="activeCommand.optionalArguments.length > 0">
-            <span class="create-job-stage-title">Optional Arguments</span>
-            <table class="create-job-argument-table">
-                <ng-container *ngFor="let argument of activeCommand.optionalArguments">
-                  <tr>
-                    <td>
-                      <span class="create-job-stage-subtitle"> {{ argument.name }} </span>
-                      <p class="create-job-stage-paragraph"> {{ argument.advancedDescription }} </p>   
-                      <ng-container *ngIf="argument.dependencies != null">
-                        <p class="create-job-stage-paragraph-label"> Dependencies </p>  
-                        <ul class="create-job-dependencies">
-                        <ng-container *ngFor="let dependence of argument.dependencies">
-                          <li><p class="create-job-stage-paragraph"> {{ dependence }} </p></li>
-                        </ng-container>
-                        </ul>
-                      </ng-container>
-
-                      <ng-container *ngIf="argument.inputType == 'boolean'">
-                        <select class="create-job-file-select" [attr.id]="'optionalOptionSelect' + argument.argument">
-                          <option value="0">-- Select Option --</option>
-                          <option value="1">False</option>
-                          <option value="2">True</option>
-                        </select>
-                      </ng-container>
-
-                      <ng-container *ngIf="argument.inputType == 'selection'">
-                        <select class="create-job-file-select" [attr.id]="'optionalOptionSelect' + argument.argument">
-                          <option value="0">-- Select Option --</option>
-                          <ng-container *ngFor="let option of argument.options; let i = index">
-                            <option (value)="i+1"> {{ option }} </option>
-                          </ng-container>
-                        </select>
-                      </ng-container>
-                    </td>
-                  </tr>
-                </ng-container>
-            </table>
-          </ng-container>
-
-          <ng-container *ngIf="activeCommand.conflictingArguments.length > 0">
-              <div class="bio-divider"></div>
-              <span class="create-job-stage-title">Conflicting Arguments</span>
-              <p class="create-job-stage-paragraph"> These arguments cannot be run together and so a job cannot be submitted if both are selected. </p>   
-              <ul class="create-job-dependencies">
-              <ng-container *ngFor="let conflictingArguments of activeCommand.conflictingArguments">
-                <li><p class="create-job-stage-paragraph"> {{ conflictingArguments[0] }} and {{ conflictingArguments[1] }} </p></li>
-              </ng-container>
-              </ul>
-          </ng-container>
+          <div class="bio-row small-padding margin-bottom">
+            <div class="bio-item fourth vertical-top">
+              <span class="bio-input-label">Stage {{i + 1}}</span>
+            </div>
+            <div class="bio-item three-fourths">
+                <div class="bio-item two-thirds vertical-top">
+                  <div class="bio-item full left-text">Biotool: {{stage.script.name}}</div>
+                  <div class="bio-item full left-text">
+                    <ul class="bio-list">
+                      <li *ngFor="let argument of stage.arguments">{{ argument.command }} - {{ argument.option }}</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="bio-item third">
+                  <!--
+                  <button class="bio-button full green-button soft-margin" (click)="editStage(i)">Edit</button>
+                  -->
+                  <button class="bio-button full red-button soft-margin" (click)="removeStage(i)">Remove</button>
+                </div>
+            </div>
+          </div> 
         </ng-container>
-
-        <span class="creat-job-stage-error hidden" id="pageError3">You must select an option for all required arguments!</span>
       </ng-container>
+      <span class="bio-error" *ngIf="receiptError != null"> {{ receiptError }} </span>
     </div>
-    <div class="bio-divider"></div>
-    <div class="create-job-stage-footer">
-      <div class="create-job-footer-nav">
-        <button class="create-job-stage-back biocloud-button" (click)="prevStage()">Back</button>
-        <button class="create-job-stage-next biocloud-button" (click)="submitStage()">Next Step</button>
-      </div>
+    <div class="bio-card-divider"></div>
+    <div class="bio-card-footer">
+      <button class="bio-button left" (click)="switchAddStage()">Add Another Stage</button>
+      <button class="bio-button right" (click)="submitJobs()">Submit Job</button>
+      <span class="clear"></span>
     </div>
   </div>
-  <div class="create-job-stage-container hidden" id="stageContainer4">
-    <div class="create-job-stage-header">REVIEW JOB</div>
-    <div class="create-job-stage-content">
-      <span class="create-job-stage-subtitle">Selected File</span>
-      <ng-container *ngIf="activeFile != null">
-        <p class="create-job-stage-paragraph"> {{ activeFile.name }} </p>
-      </ng-container>
-      <div class="bio-divider"></div>
-      <ng-container *ngFor="let stage of jobStages; let i = index">
-        <span class="create-job-stage-subtitle">
-          Stage {{ i + 1 }} - '{{ stage.script.name }}'
-          <ng-container *ngIf="stage.command.id != null">
-            {{ stage.command.name }}
+
+
+
+  <div class="bio-card" *ngIf="activeWindow == 'Stage Tool'">
+      <div class="bio-card-header">
+        <span class="bio-title">ADD STAGE</span>
+      </div>
+      <div class="bio-card-content">
+        <span class="bio-header margin-bottom">Select A Biotool</span>
+        <span class="bio-row center-text margin-bottom">
+          <select class="third" id="toolSelect" (change)="selectTool()">
+            <option>--Select Biotool--</option>
+            <ng-container *ngFor="let tool of tools; let i = index">
+              <ng-container *ngIf="checkFileType(tool)">
+                <option (value)="i"> {{ tool.name }} </option>
+              </ng-container>
+            </ng-container>
+          </select>
+        </span>
+        <span class="bio-subheader margin-bottom">Tool Description</span>
+        <span class="bio-row margin-bottom">
+          <ng-container *ngIf="activeTool == null">
+            <p class="bio-paragraph center-text" id="toolDescription"> -- Please select a BioTool -- </p>
+          </ng-container>
+          <ng-container *ngIf="activeTool != null">
+              <p class="bio-paragraph center-text" id="toolDescription"> {{ activeTool.basicDescription }} </p>
           </ng-container>
         </span>
-        <ul>
-          <ng-container *ngFor="let argument of stage.arguments">
-            <li> {{ argument.command }} - {{ argument.option }}</li>
+        <button class="bio-button right margin-bottom" (click)="switchConfirmTool()">Select Tool</button>
+        <span class="clear"></span>
+
+        <span class="bio-divide-header"><span>Or</span></span>
+
+        <span class="bio-header margin-bottom">Select A Job Template</span>
+        <span class="bio-row center-text margin-bottom">
+          <ng-container *ngIf="templates.length != 0">
+            <select class="third" id="toolSelect" (change)="selectTool()">
+              <option>--Select Template--</option>
+              <ng-container *ngFor="let template of templates; let i = index">
+                <ng-container *ngIf="checkFileType(template)">
+                  <option (value)="i"> {{ template.name }} </option>
+                </ng-container>
+              </ng-container>
+            </select>
+            <button class="bio-button right margin-bottom" (click)="switchConfirmTemplate()">Select template</button>
+            <span class="clear"></span>
           </ng-container>
-        </ul>
-        <div class="bio-divider"></div>
-      </ng-container>
-    </div>
-    <div class="bio-divider"></div>
-    <div class="create-job-stage-footer">
-      <div class="create-job-footer-nav">
-        <button class="create-job-stage-back biocloud-button" (click)="addAnotherStep()">Add Another Step</button>
-        <button class="create-job-stage-next biocloud-button" (click)="submitJobs()">Submit Job</button>
+          <ng-container *ngIf="templates.length == 0">
+            <span class="bio-error"> -- You have no saved templates -- </span>
+          </ng-container>
+        </span>
+        <span class="bio-error" *ngIf="toolError != null"> {{ toolError }} </span>
       </div>
-    </div>
+      <div class="bio-card-divider"></div>
+      <div class="bio-card-footer">
+        <button class="bio-button left" (click)="cancelStage()">Back</button>
+        <span class="clear"></span>
+      </div>
+  </div>
+
+
+
+  <div class="bio-card" *ngIf="activeWindow == 'Stage Configure'">
+      <div class="bio-card-header">
+        <span class="bio-title">CONFIGURE STAGE</span>
+      </div>
+      <div class="bio-card-content">
+        <ng-container *ngIf="activeTool != null">
+          <ng-container *ngIf="activeTool.commands[0].command != 'DEFAULT'">
+            <select id="commandSelect" (change)="selectCommand()">
+              <option value="0">-- Select Command --</option>
+              <ng-container *ngFor="let command of activeTool.commands; let i = index">
+                <option (value)="i"> {{ command.name }} </option>
+              </ng-container>
+            </select>
+          </ng-container>
+          <span class="bio-header margin-bottom">Command Description</span>
+          <ng-container *ngIf="activeTool.commands[0].command != 'DEFAULT'">
+            <p class="bio-paragraph center-text" id="commandDescription"> -- Please select a command -- </p>
+          </ng-container>
+          <ng-container *ngIf="activeTool.commands[0].command == 'DEFAULT'">
+            <p class="bio-paragraph center-text" id="commandDescription"> {{ activeTool.advancedDescription }} </p>
+          </ng-container>
+
+          <div class="bio-card-divider margin-bottom"></div>
+
+          <ng-container *ngIf="activeCommand != null">
+            <ng-container *ngIf="activeCommand.requiredArguments.length > 0">
+              <span class="bio-header margin-bottom center-text">Required Arguments</span>
+              <table class="create-job-argument-table">
+                  <ng-container *ngFor="let argument of activeCommand.requiredArguments">
+                    <tr>
+                      <td>
+                          <span class="create-job-stage-subtitle"> {{ argument.name }} </span>
+                          <p class="create-job-stage-paragraph"> {{ argument.advancedDescription }} </p>   
+                          <ng-container *ngIf="argument.dependencies != null">
+                            <p class="create-job-stage-paragraph-label"> Dependencies </p>  
+                            <ng-container *ngFor="let dependence of argument.dependencies">
+                              <p class="create-job-stage-paragraph"> {{ dependence }} </p>
+                            </ng-container>
+                          </ng-container>
+    
+                          <ng-container *ngIf="argument.inputType == 'boolean'">
+                            <select class="create-job-file-select" [attr.id]="'requiredOptionSelect' + argument.argument">
+                              <option value="0">False</option>
+                              <option value="1">True</option>
+                            </select>
+                          </ng-container>
+    
+                          <ng-container *ngIf="argument.inputType == 'selection'">
+                            <select class="create-job-file-select" [attr.id]="'requiredOptionSelect' + argument.argument">
+                              <ng-container *ngFor="let option of argument.options; let i = index">
+                                <option (value)="i"> {{ option.name }} </option>
+                              </ng-container>
+                            </select>
+                          </ng-container>
+                        </td>
+                    </tr>
+                  </ng-container>
+              </table>
+            </ng-container>
+
+            <ng-container *ngIf="activeCommand.requiredArguments.length > 0 && activeCommand.optionalArguments.length > 0">
+              <div class="bio-card-divider"></div>
+            </ng-container>
+
+            <ng-container *ngIf="activeCommand.optionalArguments.length > 0">
+                <span class="bio-header margin-bottom center-text">Optional Arguments</span>
+                <table class="create-job-argument-table">
+                    <ng-container *ngFor="let argument of activeCommand.optionalArguments">
+                      <tr>
+                        <td>
+                          <span class="create-job-stage-subtitle"> {{ argument.name }} </span>
+                          <p class="create-job-stage-paragraph"> {{ argument.advancedDescription }} </p>   
+                          <ng-container *ngIf="argument.dependencies != null">
+                            <p class="create-job-stage-paragraph-label"> Dependencies </p>  
+                            <ul class="create-job-dependencies">
+                            <ng-container *ngFor="let dependence of argument.dependencies">
+                              <li><p class="create-job-stage-paragraph"> {{ dependence }} </p></li>
+                            </ng-container>
+                            </ul>
+                          </ng-container>
+    
+                          <ng-container *ngIf="argument.inputType == 'boolean'">
+                            <select class="create-job-file-select" [attr.id]="'optionalOptionSelect' + argument.argument">
+                              <option value="0">-- Select Option --</option>
+                              <option value="1">False</option>
+                              <option value="2">True</option>
+                            </select>
+                          </ng-container>
+    
+                          <ng-container *ngIf="argument.inputType == 'selection'">
+                            <select class="create-job-file-select" [attr.id]="'optionalOptionSelect' + argument.argument">
+                              <option value="0">-- Select Option --</option>
+                              <ng-container *ngFor="let option of argument.options; let i = index">
+                                <option (value)="i+1"> {{ option }} </option>
+                              </ng-container>
+                            </select>
+                          </ng-container>
+                        </td>
+                      </tr>
+                    </ng-container>
+                </table>
+            </ng-container>
+
+            <ng-container *ngIf="activeCommand.conflictingArguments.length > 0">
+              <div class="bio-divider"></div>
+              <span class="bio-header margin-bottom center-text">Conflicting Arguments</span>
+              <p class="bio-paragraph center-text"> These arguments cannot be run together and so a job cannot be submitted if both are selected. </p>   
+              <ul class="create-job-dependencies">
+                <ng-container *ngFor="let conflictingArguments of activeCommand.conflictingArguments">
+                  <li><p class="bio-paragraph"> {{ conflictingArguments[0] }} and {{ conflictingArguments[1] }} </p></li>
+                </ng-container>
+              </ul>
+            </ng-container>
+
+          </ng-container>
+        </ng-container>
+        <span class="bio-error" *ngIf="configureError != null"> {{ configureError }} </span>
+      </div>
+      <div class="bio-card-divider"></div>
+      <div class="bio-card-footer">
+        <button class="bio-button left" (click)="switchAddStage()">Back</button>
+        <button class="bio-button right" (click)="switchConfirmStage()">Confirm Stage</button>
+        <span class="clear"></span>
+      </div>
   </div>
 </div>

@@ -1,0 +1,14 @@
+<div class="bio-main-content">
+  <div class="bio-card">
+    <div class="bio-card-header">
+      <span class="bio-title">CREATE NEW JOB</span>
+    </div>
+    <div class="bio-card-content">
+      <input type="file" file-model="myFile" (change)="fileChangeEvent($event)"  name="upload"/>
+    </div>
+    <div class="bio-card-divider"></div>
+    <div class="bio-card-footer">
+      <button class="bio-button left" (click)="upload()">Upload</button>
+      <span class="clear"></span>
+    </div>
+</div>

@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomePageComponent implements OnInit {
   
+  cardTitle = "Test Title";
+
   jobs = [
     {
       title: "Job Title 1",
@@ -17,6 +19,15 @@ export class HomePageComponent implements OnInit {
       content: "Job Content 2. Lorem Ipsum.",
     },
   ]
+
+  files = [
+    {
+      name: 'File1',
+    },
+    {
+      name: 'File2',
+    },
+  ];
 
   constructor() { }
 

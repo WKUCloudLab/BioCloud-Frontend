@@ -1,12 +1,51 @@
 <div class="bio-main-content">
-  <ng-container *ngIf="jobs != null">
-    <div class="bio-card" *ngFor="let job of jobs">
-      <div class="bio-card-header">
-        <span class="bio-header"> {{ job.title }} </span>
+  <div class="bio-card">
+    <div class="bio-card-header">
+      <span class="bio-header"> {{ cardTitle }} </span>
+    </div>
+
+    <div class="bio-card-content">
+      <span class="bio-divide-header"><span>Job Details</span></span>
+
+      <div class="bio-row small-padding margin-bottom">
+        <div class="bio-item fourth">
+          <span class="bio-input-label">Name</span>
+        </div>
+        <div class="bio-item three-fourths">
+          <input type="textbox" class="bio-textbox right">
+        </div>
       </div>
-      <div class="bio-card-content">
-        {{ job.content }}
+
+      <ng-container *ngFor="let job of jobs">
+        <div class="bio-row small-padding margin-bottom">
+          <div class="bio-item fourth">
+            <span class="bio-input-label"> {{ job.title }} </span>
+          </div>
+          <div class="bio-item three-fourths">
+            <span class="bio-item"> {{ job.content }} </span>
+          </div>
+        </div>
+      </ng-container>
+
+      <div class="bio-row small-padding margin-bottom">
+        <div class="bio-item fourth">
+          <span class="bio-input-label">File</span>
+        </div>
+        <div class="bio-item three-fourths">
+          <select class="create-job-file-select" id="fileSelect" (change)="selectFile()">
+            <option value="0">-- Select File --</option>
+            <ng-container *ngFor="let file of files; let i = index">
+              <option (value)="i"> {{ file.name }} </option>
+            </ng-container>
+          </select> 
+        </div>
       </div>
     </div>
-  </ng-container>
+
+    <div class="bio-card-divider"></div>
+
+    <div class="bio-card-footer">
+      <button class="bio-button right" (click)="submit()">Submit</button>
+      <span class="clear"></span>
+  </div>
 </div>
