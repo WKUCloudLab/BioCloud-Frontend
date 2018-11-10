@@ -11,21 +11,58 @@ export class HomePageComponent implements OnInit {
 
   jobs = [
     {
-      title: "Job Title 1",
-      content: "Job Content 1. Lorem Ipsum.",
+      name: "Job Title 1",
+      script: "FastQC",
+      file: "File1.txt",
+      began: "09/09/1990",
+      status: "Waiting",
     },
     {
-      title: "Job Title 2",
-      content: "Job Content 2. Lorem Ipsum.",
+      name: "Job Title 2",
+      script: "FastQC",
+      file: "File1.txt",
+      began: "09/09/1990",
+      status: "In Progress",
+    },
+    {
+      name: "Job Title 3",
+      script: "FastQC",
+      file: "File1.txt",
+      began: "09/09/1990",
+      status: "Complete",
     },
   ]
 
   files = [
     {
-      name: 'File1',
+      name: 'File1.txt',
+      type: 'txt',
+      size: '2064',
+      uploaded: '09/09/1990'
     },
     {
-      name: 'File2',
+      name: 'File2.txt',
+      type: 'txt',
+      size: '2064',
+      uploaded: '09/09/1990'
+    },
+    {
+      name: 'File3.txt',
+      type: 'txt',
+      size: '2064',
+      uploaded: '09/09/1990'
+    },
+    {
+      name: 'File4.txt',
+      type: 'txt',
+      size: '2064',
+      uploaded: '09/09/1990'
+    },
+    {
+      name: 'File5.txt',
+      type: 'txt',
+      size: '2064',
+      uploaded: '09/09/1990'
     },
   ];
 

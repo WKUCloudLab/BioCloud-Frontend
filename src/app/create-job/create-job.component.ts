@@ -147,7 +147,7 @@ export class CreateJobComponent implements OnInit {
       fileTypes: [
         "txt",
         "png"
-      ],
+      ], 
       commands:[
         {
           command: "DEFAULT",
