@@ -1,0 +1,57 @@
+.bio-file-container {
+    display: block;
+    padding: 40px;
+    background-color: #ccc;
+    border: 1px solid #bbb;
+    text-align: center;
+    -webkit-box-shadow: inset 0px 0px 32px 0px rgba(0,0,0,0.05);
+    -moz-box-shadow: inset 0px 0px 32px 0px rgba(0,0,0,0.05);
+    box-shadow: inset 0px 0px 32px 0px rgba(0,0,0,0.05);
+}
+
+.bio-file {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+    z-index: -1;
+}
+
+.bio-file + .bio-file-label {
+    font-size: 14px;
+    font-weight: 500;
+    background-color: #fff;
+    border-radius: 3px;
+    border: 2px solid #00ace6;
+    color: #00ace6;
+    display: inline-block;
+    margin: 0 auto;
+    padding: 5px;
+    line-height: 20px;
+}
+
+.bio-file-label span {
+    display: inline-block;
+    margin-left: 5px;
+}
+
+.bio-svg {
+    width: auto;
+    height: auto;
+    fill: #00ace6;
+}
+
+.bio-file:focus + label,
+.bio-file + label:hover {
+    background-color: #eee;
+}
+
+.bio-file + label {
+	cursor: pointer;
+}
+
+.bio-file:focus + label {
+	outline: 1px dotted #000;
+	outline: -webkit-focus-ring-color auto 5px;
+}

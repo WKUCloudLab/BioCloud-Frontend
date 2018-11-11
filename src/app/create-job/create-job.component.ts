@@ -10,12 +10,44 @@ export class CreateJobComponent implements OnInit {
   stageTracker = 1;
   stageLength = 4;
 
-  activeFile = null;
+  jobName = "Untitled";
 
+  activeWindow = "Job Receipt";
+  activeFile = null;
   activeTool = null;
   activeCommand = null;
 
+  receiptError = null;
+  toolError = null;
+  configureError = null;
+
   jobStages = [];
+  /*
+  jobStages = [ 
+    {
+      tool: "FastQC",
+      attributes: [
+        {
+          name: "test",
+          option: "choice",
+        },
+        {
+          name: "test",
+          option: "choice",
+        },
+      ],
+    }, 
+    {
+      tool: "FastQC",
+      attributes: [
+        {
+          name: "test",
+          option: "choice",
+        },
+      ],
+    }, 
+  ];  
+  */
 
   files = [
     {
@@ -26,6 +58,8 @@ export class CreateJobComponent implements OnInit {
       created: "2016-03-03 01:01:01"
     },
   ];
+
+  templates = [];
 
   tools = [
     {
@@ -113,7 +147,7 @@ export class CreateJobComponent implements OnInit {
       fileTypes: [
         "txt",
         "png"
-      ],
+      ], 
       commands:[
         {
           command: "DEFAULT",
@@ -217,43 +251,9 @@ export class CreateJobComponent implements OnInit {
   ngOnInit() {
   }
 
-  nextStage() {
-    var nextStage = this.stageTracker + 1;
-    this.changeStage(nextStage);
-  }
-
-  prevStage() {
-    var nextStage = this.stageTracker - 1;
-    this.changeStage(nextStage);
-  }
-
-  changeStage(nextStage) {
-    if(nextStage > this.stageLength) {
-      nextStage = this.stageLength;
-    } else if(nextStage < 0) {
-      nextStage = 0;
-    }
-    this.stageTracker = nextStage;
-    
-    this.hideAllStages();
-    this.showStage(this.stageTracker);
-  }
-
-  hideAllStages() {
-    for( var i = 1; i <= this.stageLength; i++) {
-      document.getElementById("stageContainer"+i).classList.add("hidden");
-      document.getElementById("stageMarker"+i).classList.remove("stage-active");
-    }
-  }
-
-  addAnotherStep() {
-    this.changeStage(2);
-  }
-
-  showStage(i) {
-    document.getElementById("stageContainer"+i).classList.remove("hidden");
-    document.getElementById("stageMarker"+i).classList.add("stage-active");
-  }
+  /*
+    ----- HELPER FUNCTIONS ------
+  */
 
   selectFile() {
     var select = (document.getElementById("fileSelect")) as HTMLSelectElement;
@@ -261,12 +261,6 @@ export class CreateJobComponent implements OnInit {
 
     if(value != 0) {
       this.activeFile = this.files[value - 1];
-      this.nextStage();
-      document.getElementById("pageError1").classList.add('hidden');
-    } else {
-      var errorTest = document.getElementById("pageError1");
-      errorTest.classList.remove('hidden');
-      errorTest.innerHTML = 'You must select a file before continuing!';
     }
   }
 
@@ -279,12 +273,6 @@ export class CreateJobComponent implements OnInit {
       if(this.activeTool.commands[0].command == "DEFAULT") {
         this.activeCommand = this.activeTool.commands[0];
       }
-      this.nextStage();
-      document.getElementById("pageError2").classList.add('hidden');
-    } else {
-      var errorTest = document.getElementById("pageError2");
-      errorTest.classList.remove('hidden');
-      errorTest.innerHTML = 'You must select a BioTool to use before continuing!';
     }
   }
 
@@ -294,45 +282,63 @@ export class CreateJobComponent implements OnInit {
 
     if(value != 0) {
       this.activeFile = this.files[value - 1];
-      this.nextStage();
-      document.getElementById("pageError2").classList.add('hidden');
-    } else {
-      var errorTest = document.getElementById("pageError2");
-      errorTest.classList.remove('hidden');
-      errorTest.innerHTML = 'You must select a BioTool to use before continuing!';
     }
   }
 
-  updateToolDescription() {
-    document.getElementById("toolDescription").classList.remove('center-text');
-    var toolSelected = (document.getElementById("toolSelect")) as HTMLSelectElement;
-    document.getElementById("toolDescription").innerHTML = this.tools[toolSelected.selectedIndex - 1].advancedDescription;
+  /*
+      ----- TRANSITION FUNCTIONS ------
+  */
+
+  cancelStage() {
+    this.activeTool = null;
+    this.activeCommand = null;
+
+    this.activeWindow = "Job Receipt";
   }
 
-  updateActiveCommand() {
-    document.getElementById("commandDescription").classList.remove('center-text');
-    var commandSelected = (document.getElementById("commandSelect")) as HTMLSelectElement;
-    this.activeCommand = this.activeTool.commands[commandSelected.selectedIndex - 1];
-    document.getElementById("commandDescription").innerHTML = this.activeCommand.advancedDescription;
+  switchAddStage() {
+    if(this.activeFile != null) {
+      this.receiptError = null;
+      this.activeWindow = "Stage Tool";
+    } else {
+      this.receiptError = "You must select a file before continuing!";
+    }
   }
 
-  submitStage() {
+  switchConfirmTool() {
+    if(this.activeTool != null) {
+      this.toolError = null;
+      this.activeWindow = "Stage Configure";
+    } else {
+      this.toolError = "You must select a tool before continuing!";
+    }
+  }
 
+  switchConfirmTemplate() {
+    if(this.activeTool != null) {
+      this.toolError = null;
+      this.activeWindow = "Stage Configure";
+    } else {
+      this.toolError = "You must select a template before continuing!";
+    }
+  }
+
+  switchConfirmStage() {
     // Command Set
     if(this.activeCommand == null) {
-      var errorTest = document.getElementById("pageError3");
+      var errorTest = document.getElementById("stageConfigureError");
       errorTest.classList.remove('hidden');
       errorTest.innerHTML = 'You must select a command to use before continuing!';
     
       // All Dependencies met
     } else if(this.checkDependencies() == false) {
-      var errorTest = document.getElementById("pageError3");
+      var errorTest = document.getElementById("stageConfigureError");
       errorTest.classList.remove('hidden');
       errorTest.innerHTML = 'A selected argument requires a dependency!';
 
       // No Conflicting Arguments
     } else if(this.checkConflicting() == false) {
-      var errorTest = document.getElementById("pageError3");
+      var errorTest = document.getElementById("stageConfigureError");
       errorTest.classList.remove('hidden');
       errorTest.innerHTML = 'You have two conflicting arguements selected!';
 
@@ -423,8 +429,10 @@ export class CreateJobComponent implements OnInit {
         }
       }
 
+      console.log(job);
+
       this.jobStages.push(job);
-      this.nextStage();
+      this.activeWindow = "Job Receipt";
     }
   }
 
@@ -534,59 +542,69 @@ export class CreateJobComponent implements OnInit {
   }
 
   submitJobs() {
-    var sendObject = {
-      jobsList: [],
-    };
+    if(this.jobStages.length == 0){ 
+      this.receiptError = "You must complete at least one stage before you can submit the job.";
+    } else {
+      this.receiptError = null;
 
-    for(var x = 0; x < this.jobStages.length; x++){
-      var fileID = null;
-      if(x == 0) {
-        fileID = this.activeFile.id;
+      var sendObject = {
+        jobsList: [],
+      };
+
+      for(var x = 0; x < this.jobStages.length; x++){
+        var fileID = null;
+        if(x == 0) {
+          fileID = this.activeFile.id;
+        }
+
+        sendObject.jobsList.push({
+          name: "Test",
+          entry: this.jobStages[x].entry,
+          options: this.jobStages[x],
+          scriptID: this.jobStages[x].script.id,
+          fileID: fileID,
+          created: Date.now(),
+        });
       }
 
-      sendObject.jobsList.push({
-        name: "Test",
-        entry: this.jobStages[x].entry,
-        options: this.jobStages[x],
-        scriptID: this.jobStages[x].script.id,
-        fileID: fileID,
-        created: Date.now(),
-      });
+      console.log("Job Submitted"); 
+
+      var http = new XMLHttpRequest();
+      var url = 'http://192.168.1.100:3001/createJob';
+
+      http.open("POST", url, true);
+      http.setRequestHeader("Content-type", "application/json");
+      http.onload = function() {
+          console.log(this.responseText);
+          //var response = JSON.parse(this.responseText);
+
+          //console.log(response);
+          /*
+          if(response['status'] == "success"){
+              console.log('Success!');
+              console.log(response['message']);
+
+              var newDistance = 0;
+              for(var x = 0; x < response['message'].length; x++) {
+                  newDistance += response['message'][x].miles;
+              }
+              currentDistance = newDistance;
+
+              updateStats('general', response['message'], currentDistance);
+              updateProgressBar();
+          } else {
+              console.log('Failure!');
+              console.log(response['message']);
+          }
+          */
+      }
+
+      console.log(sendObject);
+      http.send(JSON.stringify(sendObject));
     }
+  }
 
-    console.log("Job Submitted"); 
-
-    var http = new XMLHttpRequest();
-    var url = 'http://192.168.1.100:3001/createJob';
-
-    http.open("POST", url, true);
-    http.setRequestHeader("Content-type", "application/json");
-    http.onload = function() {
-        console.log(this.responseText);
-        //var response = JSON.parse(this.responseText);
-
-        //console.log(response);
-        /*
-        if(response['status'] == "success"){
-            console.log('Success!');
-            console.log(response['message']);
-
-            var newDistance = 0;
-            for(var x = 0; x < response['message'].length; x++) {
-                newDistance += response['message'][x].miles;
-            }
-            currentDistance = newDistance;
-
-            updateStats('general', response['message'], currentDistance);
-            updateProgressBar();
-        } else {
-            console.log('Failure!');
-            console.log(response['message']);
-        }
-        */
-    }
-
-    console.log(sendObject);
-    http.send(JSON.stringify(sendObject));
+  removeStage(i) {
+    this.jobStages.splice(i, 2);
   }
 }

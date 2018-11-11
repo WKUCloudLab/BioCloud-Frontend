@@ -64,6 +64,26 @@ select:active {
     text-align: center !important;
 }
 
+.left-text {
+    text-align: left !important;
+}
+
+.right-text {
+    text-align: right !important;
+}
+
+.vertical-top {
+    vertical-align: top !important;
+}
+
+.vertical-middle {
+    vertical-align: middle !important;
+}
+
+.vertical-bottom {
+    vertical-align: bottom !important;
+}
+
 .right {
     float: right;
 }
@@ -75,6 +95,58 @@ select:active {
 .clear {
     clear: both; 
     display: block;
+}
+
+.block {
+    display: block !important;
+}
+
+.red {
+    background-color: #bd2020;
+}
+
+.yellow {
+    background-color: #f1ff20;
+}
+
+.green {
+    background-color: #1d731d;
+}
+
+/*
+    Widths
+*/
+
+.fourth {
+    width: 25%;
+}
+
+.third {
+    width: 33.33%;
+}
+
+.half {
+    width: 50%;
+}
+
+.two-thirds {
+    width: 66.66%;
+}
+
+.three-fourths {
+    width: 75%;
+}
+
+.full {
+    width: 90%;
+}
+
+.max {
+    width: 100%;
+}
+
+.bold {
+    font-weight: 500;
 }
 
 /*
@@ -144,9 +216,53 @@ select:active {
     border-bottom: 1px solid #ccc;
 }
 
-.bio-header {
+.bio-title {
     color: #555;
     font-size: 20px;
+    font-weight: 600;
+}
+
+.bio-header {
+    display: block;
+    color: #555;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.bio-subheader {
+    display: block;
+    color: #555;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.bio-divide-header {
+    display: block;
+    height: 7px;
+    width: 100%;
+    color: #555;
+    font-size: 14px;
+    text-align: center;
+    font-weight: 500;
+    border-bottom: 2px solid #aaa;
+    margin-bottom: 17px;
+}
+.bio-divide-header span {
+    background-color: #fff;
+    padding: 0 5px;
+}
+
+.bio-paragraph {
+    font-size: 14px;
+}
+
+.bio-input-label {
+    display: block;
+    width: calc(100% - 20px);
+    padding: 0 10px;
+    text-align: right;
+    color: #666;
+    font-size: 16px;
     font-weight: 500;
 }
 
@@ -157,12 +273,86 @@ select:active {
     padding: 8px 16px;
     font-size: 14px;
     font-weight: 500;
-    background-color: transparent;
+    background-color: #fff;
 }
 
 .bio-button:hover {
     cursor: pointer;
     background-color: #eee;
+}
+
+.green-button {
+    border-color: #4CAF50;
+    color: #4CAF50;
+}
+
+.red-button {
+    border-color: #f44336;
+    color: #f44336;
+}
+
+.bio-textbox {
+    border: 0;
+    border-bottom: 1px solid #aaa;
+    width: calc(100% - 20px);
+    height: 40px;
+    font-size: 16px;
+    padding: 0 10px;
+    color: #555;
+}
+
+.bio-textbox:focus {
+    border: 0;
+    border-bottom: 1px solid #aaa;
+    background-color: #eee;
+    outline-width: 0;
+}
+
+.bio-row {
+    display: block;
+}
+
+.bio-item {
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.bio-list {
+    margin: 0;
+    margin-bottom: 10px;
+    padding-left: 20px;
+}
+
+.bio-error {
+    display: block;
+    color: #d13838;
+    text-align: center;
+}
+
+.margin-bottom {
+    margin-bottom: 20px !important;
+}
+
+.soft-margin {
+    margin: 2px;
+}
+
+.margin-small {
+    margin: 5px 10px;
+}
+
+.margin-none {
+    margin: 0 !important;
+}
+
+.bio-process-icon {
+    display: inline-block;
+    border-radius: 100%;
+    margin-top: 1px;
+    width: 13px;
+    height: 13px;
+    border: 2px solid #ccc;
 }
 
 /*
@@ -181,15 +371,30 @@ select:active {
     box-shadow: 0px 2px 1px 1px rgba(0,0,0,0.2);
 }
 
+.bio-sub-card {
+    display: inline-block;
+    height: auto;
+    max-width: calc(270px - 20px);
+    margin: 5px;
+    overflow: hidden;
+    border-radius: 1px;
+    background-color: #fff;
+    -webkit-box-shadow: 0px 0px 1px 1px rgba(0,0,0,0.2);
+    -moz-box-shadow: 0px 0px 1px 1px rgba(0,0,0,0.2);
+    box-shadow: 0px 0px 1px 1px rgba(0,0,0,0.2);
+}
+
 .bio-card-header {
     padding: 10px;
+    padding-bottom: 0;
 }
 
 .bio-card-content {
-    padding: 10px;
+    padding: 10px 30px;
 }
 
 .bio-card-footer {
+    background-color: #eee;
     padding: 10px;
 }
 
@@ -199,4 +404,20 @@ select:active {
     border-bottom: 1px solid #ccc;
 }
 
+.bio-sub-card-container {
+    text-align: left;
+    padding: 5px;
+    background-color: #eee;
+    border: 1px solid #ccc;
+    box-shadow: inset 0px 0px 32px 0px rgba(0,0,0,0.05);
+}
 
+@media (max-width: 620px) {
+    .bio-sub-card-container {
+        text-align: center;
+    }
+
+    .bio-sub-card {
+        max-width: 100%;
+    }
+}

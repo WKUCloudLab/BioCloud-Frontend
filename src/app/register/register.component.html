@@ -3,16 +3,25 @@
     <div class="login-content">
       <h1> {{ title }} </h1>
       <h2> Login to get started! </h2>
+      <span class="input-label">Username</span>
+      <input class="input-box" type="text"  [ngModel]="username" (ngModelChange)="username = $event">
       <span class="input-label">Email</span>
-      <input class="input-box" type="text" >
+      <input class="input-box" type="text" [ngModel]="email" (ngModelChange)="email = $event">
+      <span class="input-label">First Name</span>
+      <input class="input-box" type="text" [ngModel]="firstName" (ngModelChange)="firstName = $event">
+      <span class="input-label">Last Name</span>
+      <input class="input-box" type="text" [ngModel]="lastName" (ngModelChange)="lastName = $event">
       <span class="input-label">Password</span>
-      <input class="input-box" type="password">
+      <input class="input-box" type="password" [ngModel]="password" (ngModelChange)="password = $event">
       <span class="input-label">Confirm Password</span>
-      <input class="input-box" type="password">
-      <button class="primary-button">Register</button>
+      <input class="input-box" type="password" [ngModel]="passwordConfirmed" (ngModelChange)="passwordConfirmed = $event">
+      <div class="margin-bottom">
+        <button class="primary-button" (click)="register()">Register</button>
+      </div>
+      <span class="bio-error margin-none" *ngIf="error != null"> {{ error }} </span>
     </div>
     <div class="login-footer">
-      Already have an account? <a routerLink="/login" routerLinkActive="active" class="login-link">Login in</a>.
+      Already have an account? <a routerLink="/" routerLinkActive="active" class="login-link">Login in</a>.
     </div>
   </div>
 </div>
