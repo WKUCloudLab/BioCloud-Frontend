@@ -1,7 +1,7 @@
 .bio-file-container {
     display: block;
     padding: 40px;
-    background-color: #ccc;
+    background-color: #ddd;
     border: 1px solid #bbb;
     text-align: center;
     -webkit-box-shadow: inset 0px 0px 32px 0px rgba(0,0,0,0.05);
@@ -21,10 +21,11 @@
 .bio-file + .bio-file-label {
     font-size: 14px;
     font-weight: 500;
-    background-color: #fff;
+    background-color: #00ace6;
     border-radius: 3px;
     border: 2px solid #00ace6;
-    color: #00ace6;
+    color: #fff;
+    fill: #fff;
     display: inline-block;
     margin: 0 auto;
     padding: 5px;
@@ -39,12 +40,13 @@
 .bio-svg {
     width: auto;
     height: auto;
-    fill: #00ace6;
 }
 
 .bio-file:focus + label,
 .bio-file + label:hover {
     background-color: #eee;
+    color: #00ace6;
+    fill: #00ace6;
 }
 
 .bio-file + label {

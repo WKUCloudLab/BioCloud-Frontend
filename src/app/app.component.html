@@ -2,10 +2,15 @@
 <div class="bio-navbar">
   <div class="bio-navbar-title">Bio-Cloud</div>
   <div class="right">
-    <a class="bio-navbar-link" routerLink="/" routerLinkActive="active">Login</a>
-    <a class="bio-navbar-link" routerLink="/home-page" routerLinkActive="active">Homepage</a>
-    <a class="bio-navbar-link" routerLink="/create-job" routerLinkActive="active">Create Job</a>
-    <a class="bio-navbar-link" routerLink="/upload-file" routerLinkActive="active">Upload File</a>
+    <ng-container *ngIf="loggedIn == false">
+      <a class="bio-navbar-link" routerLink="/" routerLinkActive="active">Login</a>
+      <a class="bio-navbar-link" routerLink="/register" routerLinkActive="active">Register</a>
+    </ng-container>
+    <ng-container *ngIf="loggedIn == true">
+      <a class="bio-navbar-link" routerLink="/home-page" routerLinkActive="active">Homepage</a>
+      <a class="bio-navbar-link" routerLink="/create-job" routerLinkActive="active">Create Job</a>
+      <a class="bio-navbar-link" (click)="clearSession()">Logout</a>
+    </ng-container>
   </div>
 </div>
 <router-outlet></router-outlet>

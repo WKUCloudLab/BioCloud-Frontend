@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BioRouterService } from '../bio-router.service';
 
 @Component({
   selector: 'app-home-page',
@@ -30,6 +31,13 @@ export class HomePageComponent implements OnInit {
       file: "File1.txt",
       began: "09/09/1990",
       status: "Complete",
+    },
+    {
+      name: "Job Title 4",
+      script: "FastQC",
+      file: "File1.txt",
+      began: "09/09/1990",
+      status: "In Progress",
     },
   ]
 
@@ -66,7 +74,20 @@ export class HomePageComponent implements OnInit {
     },
   ];
 
-  constructor() { }
+  constructor(
+    public serverRouter: BioRouterService,
+  ) { 
+    /*
+    this.serverRouter.get('createJob').then( (response) => {
+      console.log(response);
+      if(response['status'] == true){
+
+      } else {
+
+      }
+    });
+    */
+  }
 
   ngOnInit() {
   }

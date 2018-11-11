@@ -5,41 +5,37 @@
     </div>
     <div class="bio-card-content">
       <span class="bio-divide-header"><span>Job Details</span></span>
-      <div class="bio-row small-padding margin-bottom">
-        <div class="bio-item fourth">
-          <span class="bio-input-label">Name</span>
+
+      <div class="bio-row small-padding center-text">
+        <div class="bio-item half margin-bottom-small">
+          <span class="bio-input-label left-text">Job Name</span>
         </div>
-        <div class="bio-item three-fourths">
-          <input type="textbox" class="bio-textbox right">
+      </div>
+      <div class="bio-row small-padding margin-bottom center-text">
+        <div class="bio-item half">
+          <input type="textbox" class="bio-textbox right" [ngModel]="jobName" (ngModelChange)="jobName = $event">
         </div>
       </div>
 
-      <div class="bio-row small-padding margin-bottom">
-        <div class="bio-item fourth">
-          <span class="bio-input-label">File</span>
+      <div class="bio-row small-padding center-text">
+        <div class="bio-item half margin-bottom-small">
+            <span class="bio-input-label left-text">Input File</span>
         </div>
-        <div class="bio-item three-fourths">
-            <select class="create-job-file-select" id="fileSelect" (change)="selectFile()">
-              <option value="0">-- Select File --</option>
-              <ng-container *ngFor="let file of files; let i = index">
-                <option (value)="i"> {{ file.name }} </option>
-              </ng-container>
-            </select> 
-          <!--
-          <div class="bio-item half">
-              <ng-container *ngIf="activeFile != null"> {{ activeFile }} </ng-container>
-              <ng-container *ngIf="activeFile == null"> --Select a File-- </ng-container>
-          </div>
-          <div class="bio-item half">
-            <button class="bio-button full"> Select File </button>
-          </div>
-          -->
+      </div>
+      <div class="bio-row small-padding margin-bottom center-text">
+        <div class="bio-item half">
+          <select id="fileSelect" (change)="selectFile()">
+            <option value="0">-- Select File --</option>
+            <ng-container *ngFor="let file of files; let i = index">
+              <option (value)="i"> {{ file.name }} </option>
+            </ng-container>
+          </select> 
         </div>
       </div>
 
       <span class="bio-divide-header"><span>Job Stages</span></span>
       <ng-container *ngIf="jobStages.length == 0 || jobStages == null">
-        <span class="bio-item max margin-bottom">-- Please Add A Stage --</span>
+        <span class="bio-item max margin-bottom">-- No stages have been added --</span>
       </ng-container>
       <ng-container *ngIf="jobStages.length != 0">
         <ng-container *ngFor="let stage of jobStages; let i = index">
@@ -86,26 +82,42 @@
         <span class="bio-title">ADD STAGE</span>
       </div>
       <div class="bio-card-content">
-        <span class="bio-header margin-bottom">Select A Biotool</span>
-        <span class="bio-row center-text margin-bottom">
-          <select class="third" id="toolSelect" (change)="selectTool()">
-            <option>--Select Biotool--</option>
-            <ng-container *ngFor="let tool of tools; let i = index">
-              <ng-container *ngIf="checkFileType(tool)">
-                <option (value)="i"> {{ tool.name }} </option>
-              </ng-container>
+        <!--
+        <div class="bio-row small-padding center-text">
+          <div class="bio-item full margin-bottom-small">
+              <span class="bio-input-label left-text">BioTool</span>
+          </div>
+        </div>
+      -->
+        <div class="bio-row small-padding margin-bottom center-text">
+          <div class="bio-item half">
+              <select id="toolSelect" (change)="selectTool()">
+                <option>--Select Biotool--</option>
+                <ng-container *ngFor="let tool of tools; let i = index">
+                  <ng-container *ngIf="checkFileType(tool)">
+                    <option (value)="i"> {{ tool.name }} </option>
+                  </ng-container>
+                </ng-container>
+              </select>
+          </div>
+        </div>
+
+        <div class="bio-row small-padding center-text">
+          <div class="bio-item full margin-bottom-small">
+            <span class="bio-input-label left-text">Tool Description</span>
+          </div>
+        </div>
+        <div class="bio-row small-padding margin-bottom center-text">
+          <div class="bio-item full">
+            <ng-container *ngIf="activeTool == null">
+              <p class="bio-paragraph center-text" id="toolDescription"> -- Please select a BioTool -- </p>
             </ng-container>
-          </select>
-        </span>
-        <span class="bio-subheader margin-bottom">Tool Description</span>
-        <span class="bio-row margin-bottom">
-          <ng-container *ngIf="activeTool == null">
-            <p class="bio-paragraph center-text" id="toolDescription"> -- Please select a BioTool -- </p>
-          </ng-container>
-          <ng-container *ngIf="activeTool != null">
+            <ng-container *ngIf="activeTool != null">
               <p class="bio-paragraph center-text" id="toolDescription"> {{ activeTool.basicDescription }} </p>
-          </ng-container>
-        </span>
+            </ng-container>
+          </div>
+        </div>
+
         <button class="bio-button right margin-bottom" (click)="switchConfirmTool()">Select Tool</button>
         <span class="clear"></span>
 

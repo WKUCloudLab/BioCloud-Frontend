@@ -17,17 +17,40 @@
             <div class="bio-item block margin-small"> 
               <span class="bio-item left bold"> {{ job.name }} </span>
               <span class="bio-item right bold"> 
-                <div class="bio-process-icon yellow" *ngIf="job.status == 'Waiting'"></div>
-                <div class="bio-process-icon green" *ngIf="job.status == 'In Progress'"></div>
-                 - {{ job.status }}
+                <div class="orange" *ngIf="job.status == 'Waiting'">
+                  {{ job.status }}
+                </div>
+                <div class="green" *ngIf="job.status == 'In Progress'">
+                  {{ job.status }}
+                </div>
               </span>
 
               <span class="clear"></span>
             </div>
+
             <div class="bio-card-divider"></div>
-            <span class="bio-item margin-small left">Script: {{ job.script }}</span>
-            <span class="bio-item margin-small left">File: {{ job.file }}</span>
-            <span class="bio-item margin-small left">Began: {{ job.began }}</span>
+
+            <div class="bio-row">
+              <span class="bio-item margin-small left third left-text">Script:</span>
+              <span class="bio-item margin-small right half">{{ job.script }}</span>
+              <span class="clear"></span>
+            </div>
+            <div class="bio-row">
+              <span class="bio-item margin-small left third left-text">File:</span>
+              <span class="bio-item margin-small right half">{{ job.file }}</span>
+              <span class="clear"></span>
+            </div>
+            <div class="bio-row">
+              <span class="bio-item margin-small left third left-text">Began:</span>
+              <span class="bio-item margin-small right half">{{ job.began }}</span>
+              <span class="clear"></span>
+            </div>
+
+            <div class="bio-card-divider"></div>
+
+            <div class="bio-row">
+              <button class="bio-button margin-small right">View Job</button>
+            </div>
           </div>
         </ng-container>
   
@@ -36,7 +59,7 @@
     </div>
 
     <div class="bio-card-footer">
-      <button class="bio-button right">Create Job</button>
+      <button class="bio-button right" routerLink="/create-job" routerLinkActive="active">Create Job</button>
       <span class="clear"></span>
     </div>
   </div>

@@ -29,7 +29,14 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
-    if(this.username != '' && this.password != ''){
+    if(
+      this.username != '' && 
+      this.email != '' && 
+      this.firstName != '' && 
+      this.lastName != '' && 
+      this.password != '' &&
+      this.passwordConfirmed != '' 
+    ){
       if(this.password == this.passwordConfirmed){
         this.error = null;
 
@@ -56,7 +63,7 @@ export class RegisterComponent implements OnInit {
         this.error = "Password and Confirmation do not match."
       }
     } else {
-      this.error = "Username and Password cannot be empty."
+      this.error = "Please fill out every field."
     }
   }
 }

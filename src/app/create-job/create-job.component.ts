@@ -10,7 +10,7 @@ export class CreateJobComponent implements OnInit {
   stageTracker = 1;
   stageLength = 4;
 
-  jobName = "Untitled";
+  jobName = "";
 
   activeWindow = "Job Receipt";
   activeFile = null;

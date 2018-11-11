@@ -21,7 +21,6 @@ const appRoutes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'home-page', component: HomePageComponent },
   { path: 'create-job', component: CreateJobComponent },
-  { path: 'upload-file', component: FileUploadComponent },
 ];
 
 @NgModule({
@@ -36,7 +35,6 @@ const appRoutes: Routes = [
   imports: [
     RouterModule.forRoot(
       appRoutes,
-      { enableTracing: true } // <-- debugging purposes only
     ),
     FormsModule,
     HttpModule,
