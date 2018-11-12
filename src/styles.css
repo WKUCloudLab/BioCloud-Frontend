@@ -30,7 +30,7 @@ select {
     background-color: #00BFFF;
     color: #fff;
     border: 0;
-    padding: 10px;
+    height: 35px;
 }
 select:after {
     transition: all 0.2s ease-in;
@@ -112,11 +112,11 @@ select:active {
 }
 
 .orange {
-    color: #d67e1d;
+    color: #ca9b29;
 }
 
 .green {
-    color: #155015;
+    color: #227d22;
 }
 
 /*
@@ -181,6 +181,7 @@ select:active {
     left: 0;
     height: 80px;
     width: 100%;
+    overflow: hidden;
     background-color: #fff;
     -webkit-box-shadow: 0px 2px 1px 1px rgba(0,0,0,0.2);
     -moz-box-shadow: 0px 2px 1px 1px rgba(0,0,0,0.2);
@@ -455,9 +456,19 @@ select:active {
     padding: 10px 30px;
 }
 
+.login-content {
+    padding: 40px;
+}
+
 .bio-card-footer {
+    border-top: 1px solid #ccc;
     background-color: #eee;
     padding: 10px;
+}
+
+.login-footer {
+    padding: 20px 40px;
+    font-size: 14px;
 }
 
 .bio-card-divider {

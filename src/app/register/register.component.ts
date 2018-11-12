@@ -60,10 +60,10 @@ export class RegisterComponent implements OnInit {
           }
         });
       } else {
-        this.error = "Password and Confirmation do not match."
+        this.error = "Passwords do not match."
       }
     } else {
-      this.error = "Please fill out every field."
+      this.error = "Please complete the entire form before submitting."
     }
   }
 }

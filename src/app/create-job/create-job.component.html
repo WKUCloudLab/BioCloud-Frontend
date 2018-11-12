@@ -67,7 +67,6 @@
       </ng-container>
       <span class="bio-error" *ngIf="receiptError != null"> {{ receiptError }} </span>
     </div>
-    <div class="bio-card-divider"></div>
     <div class="bio-card-footer">
       <button class="bio-button left" (click)="switchAddStage()">Add Another Stage</button>
       <button class="bio-button right" (click)="submitJobs()">Submit Job</button>
@@ -143,7 +142,6 @@
         </span>
         <span class="bio-error" *ngIf="toolError != null"> {{ toolError }} </span>
       </div>
-      <div class="bio-card-divider"></div>
       <div class="bio-card-footer">
         <button class="bio-button left" (click)="cancelStage()">Back</button>
         <span class="clear"></span>
@@ -167,12 +165,14 @@
             </select>
           </ng-container>
           <span class="bio-header margin-bottom">Command Description</span>
-          <ng-container *ngIf="activeTool.commands[0].command != 'DEFAULT'">
-            <p class="bio-paragraph center-text" id="commandDescription"> -- Please select a command -- </p>
-          </ng-container>
-          <ng-container *ngIf="activeTool.commands[0].command == 'DEFAULT'">
-            <p class="bio-paragraph center-text" id="commandDescription"> {{ activeTool.advancedDescription }} </p>
-          </ng-container>
+          <div class="bio-row margin-bottom">
+            <ng-container *ngIf="activeTool.commands[0].command != 'DEFAULT'">
+              <p class="bio-paragraph center-text" id="commandDescription"> -- Please select a command -- </p>
+            </ng-container>
+            <ng-container *ngIf="activeTool.commands[0].command == 'DEFAULT'">
+              <p class="bio-paragraph center-text" id="commandDescription"> {{ activeTool.advancedDescription }} </p>
+            </ng-container>
+          </div>
 
           <div class="bio-card-divider margin-bottom"></div>
 
@@ -193,14 +193,14 @@
                           </ng-container>
     
                           <ng-container *ngIf="argument.inputType == 'boolean'">
-                            <select class="create-job-file-select" [attr.id]="'requiredOptionSelect' + argument.argument">
+                            <select class="create-job-file-select half" [attr.id]="'requiredOptionSelect' + argument.argument">
                               <option value="0">False</option>
                               <option value="1">True</option>
                             </select>
                           </ng-container>
     
                           <ng-container *ngIf="argument.inputType == 'selection'">
-                            <select class="create-job-file-select" [attr.id]="'requiredOptionSelect' + argument.argument">
+                            <select class="create-job-file-select half" [attr.id]="'requiredOptionSelect' + argument.argument">
                               <ng-container *ngFor="let option of argument.options; let i = index">
                                 <option (value)="i"> {{ option.name }} </option>
                               </ng-container>
@@ -234,7 +234,7 @@
                           </ng-container>
     
                           <ng-container *ngIf="argument.inputType == 'boolean'">
-                            <select class="create-job-file-select" [attr.id]="'optionalOptionSelect' + argument.argument">
+                            <select class="create-job-file-select half" [attr.id]="'optionalOptionSelect' + argument.argument">
                               <option value="0">-- Select Option --</option>
                               <option value="1">False</option>
                               <option value="2">True</option>
@@ -242,7 +242,7 @@
                           </ng-container>
     
                           <ng-container *ngIf="argument.inputType == 'selection'">
-                            <select class="create-job-file-select" [attr.id]="'optionalOptionSelect' + argument.argument">
+                            <select class="create-job-file-select half" [attr.id]="'optionalOptionSelect' + argument.argument">
                               <option value="0">-- Select Option --</option>
                               <ng-container *ngFor="let option of argument.options; let i = index">
                                 <option (value)="i+1"> {{ option }} </option>
@@ -270,7 +270,6 @@
         </ng-container>
         <span class="bio-error" *ngIf="configureError != null"> {{ configureError }} </span>
       </div>
-      <div class="bio-card-divider"></div>
       <div class="bio-card-footer">
         <button class="bio-button left" (click)="switchAddStage()">Back</button>
         <button class="bio-button right" (click)="switchConfirmStage()">Confirm Stage</button>

@@ -1,6 +1,6 @@
 <div class="bio-main-content">
-  <div class="login-container">
-    <div class="login-content">
+  <div class="bio-card card-thin">
+    <div class="bio-card-content login-content">
       <h1> {{ title }} </h1>
       <h2> Register your account now! </h2>
 
@@ -36,14 +36,14 @@
         <span class="bio-input-label left-text">Password</span>
       </div>
       <div class="bio-row small-padding margin-bottom">
-        <input type="textbox" class="bio-textbox" [ngModel]="password" (ngModelChange)="password = $event">
+        <input type="password" class="bio-textbox" [ngModel]="password" (ngModelChange)="password = $event">
       </div>
 
       <div class="bio-row small-padding margin-bottom-small">
         <span class="bio-input-label left-text">Confirm Password</span>
       </div>
       <div class="bio-row small-padding margin-bottom">
-        <input type="textbox" class="bio-textbox" [ngModel]="passwordConfirmed" (ngModelChange)="passwordConfirmed = $event">
+        <input type="password" class="bio-textbox" [ngModel]="passwordConfirmed" (ngModelChange)="passwordConfirmed = $event">
       </div>
 
       <span class="bio-error margin-bottom" *ngIf="error != null"> {{ error }} </span>
@@ -55,7 +55,7 @@
         -->
       </div>
     </div>
-    <div class="login-footer">
+    <div class="bio-card-footer login-footer">
       Already have an account? <a routerLink="/" routerLinkActive="active" class="bio-link">Login in</a>.
     </div>
   </div>
