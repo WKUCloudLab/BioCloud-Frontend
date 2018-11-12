@@ -273,7 +273,7 @@ select:active {
 
 .bio-input-label {
     display: block;
-    width: calc(100% - 20px);
+    width: 100%;
     color: #333;
     font-size: 16px;
     font-weight: 500;

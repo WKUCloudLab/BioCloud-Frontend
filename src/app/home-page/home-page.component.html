@@ -1,9 +1,12 @@
 <div class="bio-main-content">
+
+  <!--
   <div class="bio-card">
     <div class="bio-card-content">
       
     </div>
   </div>
+  -->
 
   <div class="bio-card">
     <div class="bio-card-header">
@@ -68,9 +71,22 @@
     <div class="bio-card-header">
       <span class="bio-title">YOUR FILES</span>
     </div>
-    <div class="bio-card-content">
-      <div class="bio-sub-card-container">
 
+    <div class="bio-card-content">
+      <div class="bio-row small-padding center-text">
+        <div class="bio-item full margin-bottom-small center-text">
+          <span class="bio-input-label center-text">Storage Usage</span>
+        </div>
+      </div>
+      <div class="bio-progress-bar-container">
+        <div class="bio-progress-bar-background"></div>
+        <div class="bio-progress-bar"></div>
+        <div class="bio-progress-bar-label">21.3gb of 50gb</div>
+      </div>
+    
+      <div class="bio-divider margin-bottom"></div>
+
+      <div class="bio-sub-card-container">
         <ng-container *ngFor="let file of files">
           <div class="bio-sub-card">
             <span class="bio-item margin-small left bold"> {{ file.name }} </span>
