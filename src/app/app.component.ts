@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { BioRouterService } from './bio-router.service';
+import { AuthService } from './auth.service';
 
 @Component({
   selector: 'app-root',
@@ -10,36 +11,60 @@ import { BioRouterService } from './bio-router.service';
 
 export class AppComponent {
   loggedIn = false;
+  navToggle = false;
   error = null;
 
   constructor(
+    private auth: AuthService,
     private router: Router,
     public serverRouter: BioRouterService,
   ){ 
+    if(localStorage.getItem('access_token') != null){
+      this.loggedIn = true;
+      this.router.navigate(['home-page']);
+    } else {
+      this.loggedIn = false;
+      this.router.navigate(['']);
+    }
+
+
+    /*
     this.serverRouter.get('users/checkSession').then( (response) => {
-      if(response['status'] == true){
+      console.log(response['message']);
+      this.loggedIn = false;
+      this.router.navigate(['']);
+
         console.log(response['message']);
+      if(response['status'] == true){
         this.loggedIn = true;
         this.router.navigate(['home-page']);
       } else {
-        console.log(response['message']);
         this.loggedIn = false;
         this.router.navigate(['']);
       }
 
       console.log(this.loggedIn);
     });
+    */
   }
 
-  clearSession() {
-    this.serverRouter.post('logout', null).then( (response) => {
-      console.log(response);
-      if(response['status'] == true){
-        this.loggedIn = false
-        this.router.navigate(['']);
-      } else {
-        this.error = response['message'];
-      }
-    });
+  logout() {
+    this.auth.logout();
+    this.loggedIn = false;
+    this.router.navigate(['']);
+  }
+
+  toggleNav() {
+    var x = document.getElementById("navBar");
+    if (x.className == "bio-navbar-links") {
+        x.className += " unhide";
+    } else {
+        x.className = "bio-navbar-links";
+    }
+  }
+
+  hideNav() {
+    var x = document.getElementById("navBar");
+    x.className = "bio-navbar-links";
   }
 }

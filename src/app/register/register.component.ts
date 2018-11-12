@@ -8,7 +8,7 @@ import { BioRouterService } from '../bio-router.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  title = 'Bio-Cloud';
+  title = 'BioCloud';
   username = '';
   email = '';
   firstName = '';

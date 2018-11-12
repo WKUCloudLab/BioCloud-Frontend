@@ -181,7 +181,6 @@ select:active {
     left: 0;
     height: 80px;
     width: 100%;
-    overflow: hidden;
     background-color: #fff;
     -webkit-box-shadow: 0px 2px 1px 1px rgba(0,0,0,0.2);
     -moz-box-shadow: 0px 2px 1px 1px rgba(0,0,0,0.2);
@@ -486,7 +485,7 @@ select:active {
 }
 
 .card-thin {
-    width: 400px !important;
+    max-width: 400px !important;
 }
 
 @media (max-width: 620px) {

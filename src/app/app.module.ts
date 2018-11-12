@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
+import { JwtModule } from '@auth0/angular-jwt';
 
 import { RouterModule, Routes } from '@angular/router';
 
@@ -15,6 +16,12 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
 
 import { BioRouterService } from './bio-router.service';
+import { AuthService } from './auth.service';
+import { AuthGuard } from './auth.guard';
+
+export function tokenGetter() {
+  return localStorage.getItem('access_token');
+}
  
 const appRoutes: Routes = [
   { path: '', component: LoginComponent },
@@ -40,8 +47,19 @@ const appRoutes: Routes = [
     HttpModule,
     HttpClientModule,
     BrowserModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        whitelistedDomains: ['localhost:4000'],
+        blacklistedRoutes: ['localhost:4000/api/auth']
+      }
+    })
   ],
-  providers: [BioRouterService],
+  providers: [
+    BioRouterService,
+    AuthService,
+    AuthGuard,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
