@@ -11,6 +11,7 @@ export class HomePageComponent implements OnInit {
   cardTitle = "Test Title";
 
   jobs = [
+    /*
     {
       name: "Job Title 1",
       script: "FastQC",
@@ -39,9 +40,11 @@ export class HomePageComponent implements OnInit {
       began: "09/09/1990",
       status: "In Progress",
     },
+    */
   ]
 
   files = [
+    /*
     {
       name: 'File1.txt',
       type: 'txt',
@@ -72,13 +75,51 @@ export class HomePageComponent implements OnInit {
       size: '2064',
       uploaded: '09/09/1990'
     },
+    */
+  ];
+
+  fileStrucure = [
+    {
+      type: 'folder',
+      name: 'folder-A',
+      folders: [
+
+      ],
+      files: [
+        {
+          type: 'file',
+          id: '000',
+          name: 'FileA1.txt',
+          size: '2064',
+        },
+        {
+          type: 'file',
+          id: '000',
+          name: 'FileA2.txt',
+          size: '2064',
+        },
+      ],
+    },
+    {
+      type: 'file',
+      id: '000',
+      name: 'File1.txt',
+      size: '2064',
+    },
   ];
 
   constructor(
     public serverRouter: BioRouterService,
   ) { 
-    /*
-    this.serverRouter.get('createJob').then( (response) => {
+    var username = localStorage.getItem('username');
+    var token = localStorage.getItem('access_token');
+
+    var sendItems = {
+      username: username,
+      token: token,
+    }
+
+    this.serverRouter.post('jobs/jobsList', sendItems).then( (response) => {
       console.log(response);
       if(response['status'] == true){
 
@@ -86,10 +127,17 @@ export class HomePageComponent implements OnInit {
 
       }
     });
-    */
+
+    this.serverRouter.post('files/filesList', sendItems).then( (response) => {
+      console.log(response);
+      if(response['status'] == true){
+
+      } else {
+
+      }
+    });
   }
 
   ngOnInit() {
   }
-
 }

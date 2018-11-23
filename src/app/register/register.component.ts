@@ -25,9 +25,6 @@ export class RegisterComponent implements OnInit {
 
   }
 
-  ngOnInit() {
-  }
-
   register() {
     if(
       this.username != '' && 
@@ -53,17 +50,20 @@ export class RegisterComponent implements OnInit {
             this.router.navigate(['']);
           } else {
             if(response['message'] == "USERNAME_EMAIL_UNAVAILABLE") {
-              this.error = "Username or Email is already in use."
+              this.error = "Username or Email is already in use.";
             } else {
               this.error = response['message'];
             }
           }
         });
       } else {
-        this.error = "Passwords do not match."
+        this.error = "Passwords do not match.";
       }
     } else {
-      this.error = "Please complete the entire form before submitting."
+      this.error = "Please complete the entire form before submitting.";
     }
+  }
+
+  ngOnInit() {
   }
 }

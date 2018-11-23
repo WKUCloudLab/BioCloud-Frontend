@@ -26,26 +26,6 @@ export class AppComponent {
       this.loggedIn = false;
       this.router.navigate(['']);
     }
-
-
-    /*
-    this.serverRouter.get('users/checkSession').then( (response) => {
-      console.log(response['message']);
-      this.loggedIn = false;
-      this.router.navigate(['']);
-
-        console.log(response['message']);
-      if(response['status'] == true){
-        this.loggedIn = true;
-        this.router.navigate(['home-page']);
-      } else {
-        this.loggedIn = false;
-        this.router.navigate(['']);
-      }
-
-      console.log(this.loggedIn);
-    });
-    */
   }
 
   logout() {

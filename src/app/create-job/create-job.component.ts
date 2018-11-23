@@ -577,7 +577,7 @@ export class CreateJobComponent implements OnInit {
       console.log("Job Submitted"); 
 
       var http = new XMLHttpRequest();
-      var url = 'http://192.168.1.100:3001/createJob';
+      var url = 'http://192.168.1.100:3001/jobs/create';
 
       http.open("POST", url, true);
       http.setRequestHeader("Content-type", "application/json");
