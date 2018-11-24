@@ -1,0 +1,20 @@
+<div class="bio-background"></div>
+<div class="bio-navbar">
+  <div class="bio-navbar-title">BioCloud</div>
+  <div class="bio-navbar-links" id="navBar">
+    <ng-container *ngIf="loggedIn == false">
+      <a class="bio-navbar-link"(click)="hideNav();" routerLink="/" routerLinkActive="active">Login</a>
+      <a class="bio-navbar-link"(click)="hideNav();" routerLink="/register" routerLinkActive="active">Register</a>
+    </ng-container>
+    <ng-container *ngIf="loggedIn == true">
+      <a class="bio-navbar-link"(click)="hideNav();" routerLink="/home-page" routerLinkActive="active">Homepage</a>
+      <a class="bio-navbar-link"(click)="hideNav();" routerLink="/create-job" routerLinkActive="active">Create Job</a>
+      <a class="bio-navbar-link" (click)="logout(); hideNav();">Logout</a>
+    </ng-container>
+  </div>
+  <a class="bio-navbar-icon" (click)="toggleNav()">
+    <i class="fa fa-bars"></i>
+  </a>
+  <span class="clear"></span>
+</div>
+<router-outlet></router-outlet>

@@ -1,0 +1,62 @@
+<div class="bio-main-content">
+  <div class="bio-card card-thin">
+    <div class="bio-card-content login-content">
+      <h1> {{ title }} </h1>
+      <h2> Register your account now! </h2>
+
+      <div class="bio-row small-padding margin-bottom-small">
+        <span class="bio-input-label left-text">Username</span>
+      </div>
+      <div class="bio-row small-padding margin-bottom">
+        <input type="textbox" class="bio-textbox" [ngModel]="username" (ngModelChange)="username = $event">
+      </div>
+
+      <div class="bio-row small-padding margin-bottom-small">
+        <span class="bio-input-label left-text">Email</span>
+      </div>
+      <div class="bio-row small-padding margin-bottom">
+        <input type="textbox" class="bio-textbox" [ngModel]="email" (ngModelChange)="email = $event">
+      </div>
+
+      <div class="bio-row small-padding margin-bottom-small">
+        <span class="bio-input-label left-text">First Name</span>
+      </div>
+      <div class="bio-row small-padding margin-bottom">
+        <input type="textbox" class="bio-textbox" [ngModel]="firstName" (ngModelChange)="firstName = $event">
+      </div>
+
+      <div class="bio-row small-padding margin-bottom-small">
+        <span class="bio-input-label left-text">Last Name</span>
+      </div>
+      <div class="bio-row small-padding margin-bottom">
+        <input type="textbox" class="bio-textbox" [ngModel]="lastName" (ngModelChange)="lastName = $event">
+      </div>
+
+      <div class="bio-row small-padding margin-bottom-small">
+        <span class="bio-input-label left-text">Password</span>
+      </div>
+      <div class="bio-row small-padding margin-bottom">
+        <input type="password" class="bio-textbox" [ngModel]="password" (ngModelChange)="password = $event">
+      </div>
+
+      <div class="bio-row small-padding margin-bottom-small">
+        <span class="bio-input-label left-text">Confirm Password</span>
+      </div>
+      <div class="bio-row small-padding margin-bottom">
+        <input type="password" class="bio-textbox" [ngModel]="passwordConfirmed" (ngModelChange)="passwordConfirmed = $event">
+      </div>
+
+      <span class="bio-error margin-bottom" *ngIf="error != null"> {{ error }} </span>
+
+      <div class="bio-row">
+        <button class="bio-button-inverse half-margin" (click)="register()">Register</button>
+        <!--
+        <button class="bio-button-minor half-margin">Forgot Password?</button>
+        -->
+      </div>
+    </div>
+    <div class="bio-card-footer login-footer">
+      Already have an account? <a routerLink="/" routerLinkActive="active" class="bio-link">Login in</a>.
+    </div>
+  </div>
+</div>
