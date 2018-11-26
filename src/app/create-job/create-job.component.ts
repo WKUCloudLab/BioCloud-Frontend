@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BioRouterService } from '../bio-router.service';
 
 @Component({
   selector: 'app-create-job',
@@ -49,6 +50,9 @@ export class CreateJobComponent implements OnInit {
   ];  
   */
 
+  files = [];
+
+  /*
   files = [
     {
       id: '1',
@@ -58,6 +62,7 @@ export class CreateJobComponent implements OnInit {
       created: "2016-03-03 01:01:01"
     },
   ];
+  */
 
   templates = [];
 
@@ -253,7 +258,12 @@ export class CreateJobComponent implements OnInit {
     },
   ];
 
-  constructor() { }
+
+  constructor(
+    public serverRouter: BioRouterService,
+  ) { 
+    this.getFiles();
+  }
 
   ngOnInit() {
   }
@@ -613,5 +623,46 @@ export class CreateJobComponent implements OnInit {
 
   removeStage(i) {
     this.jobStages.splice(i, 2);
+  }
+
+  getFiles() {
+    var token = localStorage.getItem('access_token');
+
+    var sendItems = {
+      token: token,
+    }
+
+    this.serverRouter.post('files/filesList', sendItems).then( (response) => {
+      /*
+      console.log("Files List:");
+      console.log(response);
+      */
+
+      if(response['status'] == true){
+        var filesList = [];
+        var fileSize = 0;
+
+        for(var x in response['message']) {
+          var file = response['message'][x];
+
+          var start = new Date(file["createdAt"]);
+
+          filesList.push({
+            id: file["id"],
+            name: file["name"],
+            type: file["filetype"],
+            size: file["size"],
+            path: file['path'],
+            created: start.getMonth()+"/"+start.getDate()+"/"+start.getFullYear(),
+          });
+
+          fileSize += file["size"];
+        }
+
+        this.files = filesList;
+      } else {
+
+      }
+    });
   }
 }
