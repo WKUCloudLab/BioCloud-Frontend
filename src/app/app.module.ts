@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
+import { AccordionModule } from "ngx-accordion";
 
 import { RouterModule, Routes } from '@angular/router';
 
@@ -18,6 +19,7 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
 import { BioRouterService } from './bio-router.service';
 import { AuthService } from './auth.service';
 import { AuthGuard } from './auth.guard';
+import { FileStructureBuilderComponent } from './file-structure-builder/file-structure-builder.component';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -28,6 +30,7 @@ const appRoutes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'home-page', component: HomePageComponent },
   { path: 'create-job', component: CreateJobComponent },
+  { path: 'upload', component: FileUploadComponent },
 ];
 
 @NgModule({
@@ -37,7 +40,8 @@ const appRoutes: Routes = [
     LoginComponent,
     CreateJobComponent,
     HomePageComponent,
-    FileUploadComponent
+    FileUploadComponent,
+    FileStructureBuilderComponent
   ],
   imports: [
     RouterModule.forRoot(
@@ -53,7 +57,8 @@ const appRoutes: Routes = [
         whitelistedDomains: ['localhost:4000'],
         blacklistedRoutes: ['localhost:4000/api/auth']
       }
-    })
+    }),
+    AccordionModule
   ],
   providers: [
     BioRouterService,

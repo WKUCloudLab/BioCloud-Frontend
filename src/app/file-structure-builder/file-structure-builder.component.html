@@ -1,0 +1,15 @@
+<accordion [closeOthers]="false" [showArrows]="true">
+  <accordion-group class="bio-accordian">
+    <accordion-heading class="bio-accordian-header">
+      {{ structure.name }}
+    </accordion-heading>
+    <div  class="bio-accordian-content">
+      <div *ngFor="let folder of structure.folders">
+        <file-structure [structure]="folder"></file-structure>
+      </div>
+      <div *ngFor="let file of structure.files">
+        <div class="bio-file-structure-file">File: {{ file.name }}</div>
+      </div>
+    </div>
+  </accordion-group>
+</accordion>
