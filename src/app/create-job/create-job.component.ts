@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { BioRouterService } from '../bio-router.service';
+
 @Component({
   selector: 'app-create-job',
   templateUrl: './create-job.component.html',
@@ -253,7 +255,20 @@ export class CreateJobComponent implements OnInit {
     },
   ];
 
-  constructor() { }
+  constructor(public serverRouter: BioRouterService,) { 
+    this.serverRouter.post('files/filesList', sendItems).then( (response) => {
+    console.log(response);
+    if(response['status'] == true){
+      this.files = response['message'];
+      for(let file of this.files){
+        this.storageUsed += <number>file.size
+
+      }
+      this.storageUsed = this.storageUsed/1000
+    } else {
+
+  }
+  });}
 
   ngOnInit() {
   }

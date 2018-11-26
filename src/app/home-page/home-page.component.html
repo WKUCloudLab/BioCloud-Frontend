@@ -35,17 +35,17 @@
 
             <div class="bio-row">
               <span class="bio-item margin-small left third left-text">Script:</span>
-              <span class="bio-item margin-small right half">{{ job.script }}</span>
+              <span class="bio-item margin-small right half">{{ job.scriptId }}</span>
               <span class="clear"></span>
             </div>
             <div class="bio-row">
               <span class="bio-item margin-small left third left-text">File:</span>
-              <span class="bio-item margin-small right half">{{ job.file }}</span>
+              <span class="bio-item margin-small right half">{{ job.options }}</span>
               <span class="clear"></span>
             </div>
             <div class="bio-row">
               <span class="bio-item margin-small left third left-text">Began:</span>
-              <span class="bio-item margin-small right half">{{ job.began }}</span>
+              <span class="bio-item margin-small right half">{{ job.start }}</span>
               <span class="clear"></span>
             </div>
 
@@ -81,19 +81,20 @@
       <div class="bio-progress-bar-container">
         <div class="bio-progress-bar-background"></div>
         <div class="bio-progress-bar"></div>
-        <div class="bio-progress-bar-label">21.3gb of 50gb</div>
+        <div class="bio-progress-bar-label">{{ storageUsed }} gb of 50gb</div>
       </div>
     
       <div class="bio-divider margin-bottom"></div>
 
       <div class="bio-sub-card-container">
         <ng-container *ngFor="let file of files">
+          
           <div class="bio-sub-card">
             <span class="bio-item margin-small left bold"> {{ file.name }} </span>
             <span class="clear"></span>
             <div class="bio-card-divider"></div>
             <span class="bio-item margin-small left">Size: {{ file.size }} bytes</span>
-            <span class="bio-item margin-small left">Uploaded: {{ file.uploaded }}</span>
+            <span class="bio-item left">Uploaded: {{ file.createdAt }}</span>
           </div>
         </ng-container>
 
@@ -102,7 +103,7 @@
     
       <div class="bio-divider margin-bottom"></div>
 
-      <div class="bio-file-container margin-bottom">
+      <!-- <div class="bio-file-container margin-bottom">
         <input type="file" file-model="myFile" class="bio-file" (change)="fileChangeEvent($event)"  name="upload">
         <label class="bio-file-label">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 17" width="20" height="17" class="bio-svg">
@@ -110,12 +111,15 @@
           </svg>
           <span>Choose a file…</span>
         </label>
-      </div>
+      </div> -->
+
+      <app-file-upload></app-file-upload>
     </div>
     
-    <div class="bio-card-footer">
+    <!-- <div class="bio-card-footer">
+
       <button class="bio-button right" (click)="upload()">Upload</button>
       <span class="clear"></span>
-    </div>
+    </div> -->
   </div>
 </div>

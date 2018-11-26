@@ -30,8 +30,16 @@ export class FileUploadComponent implements OnInit {
       var xhr = new XMLHttpRequest();
 
       console.log(file);
+      var username = localStorage.getItem('username');
+      var token = localStorage.getItem('access_token');
+
+      var sendItems = {
+        username: username,
+        token: token,
+      }
 
       //formData.append("username", "POOP");
+      formData.append('token', token);
       formData.append("upload", file, file.name);
       console.log(formData);
       

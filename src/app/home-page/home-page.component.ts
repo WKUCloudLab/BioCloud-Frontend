@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BioRouterService } from '../bio-router.service';
-
+import { FileUploadComponent } from '../file-upload/file-upload.component';
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
@@ -107,6 +107,7 @@ export class HomePageComponent implements OnInit {
       size: '2064',
     },
   ];
+  storageUsed = 0;
 
   constructor(
     public serverRouter: BioRouterService,
@@ -119,22 +120,24 @@ export class HomePageComponent implements OnInit {
       token: token,
     }
 
-    this.serverRouter.post('jobs/jobsList', sendItems).then( (response) => {
+
+
+    this.serverRouter.post('jobs/jobsList', token).then( (response) => {
       console.log(response);
       if(response['status'] == true){
-
-      } else {
-
-      }
+        this.jobs = response['message'];
+      } 
     });
 
-    this.serverRouter.post('files/filesList', sendItems).then( (response) => {
+    this.serverRouter.post('files/filesList', token).then( (response) => {
       console.log(response);
       if(response['status'] == true){
-
-      } else {
-
-      }
+        this.files = response['message'];
+        for(let file of this.files){
+          this.storageUsed += <number>file.size
+        }
+        this.storageUsed = this.storageUsed/1000
+      } 
     });
   }
 
