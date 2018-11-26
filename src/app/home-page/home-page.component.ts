@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BioRouterService } from '../bio-router.service';
-
+import { FileUploadComponent } from '../file-upload/file-upload.component';
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
@@ -48,6 +48,7 @@ export class HomePageComponent implements OnInit {
       size: '2064',
     },
   ];
+  storageUsed = 0;
 
   constructor(
     public serverRouter: BioRouterService,
@@ -103,11 +104,18 @@ export class HomePageComponent implements OnInit {
         this.jobs = jobsList;
       } else {
 
-      }
+    this.serverRouter.post('jobs/jobsList', token).then( (response) => {
+      console.log(response);
+      if(response['status'] == true){
+        this.jobs = response['message'];
+      } 
     });
   }
+});
+}
 
-  getFiles() {
+
+  getFiles = ()=> {
     var token = localStorage.getItem('access_token');
 
     var sendItems = {
@@ -149,7 +157,7 @@ export class HomePageComponent implements OnInit {
     });
   }
 
-  fileChangeEvent(fileInput: any){
+  fileChangeEvent = (fileInput: any)=>{
     this.fileToUpload = <File> fileInput.target.files[0];
 
     this.serverRouter.upload(this.fileToUpload).then( (result) => {
@@ -159,7 +167,7 @@ export class HomePageComponent implements OnInit {
     });
   }
   
-  buildDirectory() {
+  buildDirectory = ()=> {
     var root = {
       name: 'root',
       folders: [],
@@ -225,6 +233,6 @@ export class HomePageComponent implements OnInit {
     this.fileStructure = root;
   }
 
-  ngOnInit() {
+  ngOnInit = ()=> {
   }
 }
