@@ -20,9 +20,11 @@ export class AppComponent {
     public serverRouter: BioRouterService,
   ){ 
     if(localStorage.getItem('access_token') != null){
+      console.log("Logged In");
       this.loggedIn = true;
       this.router.navigate(['home-page']);
     } else {
+      console.log("Logged Out");
       this.loggedIn = false;
       this.router.navigate(['']);
     }

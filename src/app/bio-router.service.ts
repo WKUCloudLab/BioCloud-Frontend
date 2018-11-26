@@ -7,6 +7,8 @@ import { JwtModule } from '@auth0/angular-jwt';
 })
 export class BioRouterService {
 
+  serverURL = 'http://192.168.1.100:3001/';
+
   constructor(
     private http: HttpClient,
   ){ 
@@ -15,7 +17,7 @@ export class BioRouterService {
 
   post(route, sendItems) {
     return new Promise((resolve) => {
-      var url = 'http://192.168.1.100:3001/'+route;
+      var url = this.serverURL+route;
 
       let options = null;
       //if(localStorage.getItem('header_token')){
@@ -38,7 +40,7 @@ export class BioRouterService {
 
   get(route) {
     return new Promise((resolve) => {
-      var url = 'http://192.168.1.100:3001/'+route;
+      var url = this.serverURL+route;
 
       this.http.get( url )
         .subscribe( response => {
@@ -47,6 +49,32 @@ export class BioRouterService {
           console.log(err);
           resolve(err);
       });
+    });
+  }
+
+  upload(file: File) {
+    return new Promise((resolve, reject) => {
+      var url = this.serverURL+'upload';
+
+      var formData: any = new FormData();
+      var xhr = new XMLHttpRequest();
+
+      formData.append('token', localStorage.getItem('access_token'));
+      formData.append('upload', file, file.name);
+      
+      xhr.responseType = 'text';
+      
+      xhr.onload = function () {
+          if (xhr.readyState === xhr.DONE) {
+              if (xhr.status === 200) {
+                  //console.log(xhr.response);
+                  //console.log(xhr.responseText);
+              }
+          }
+      };
+
+      xhr.open("POST", url, true);
+      xhr.send(formData);
     });
   }
 }
