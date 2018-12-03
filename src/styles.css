@@ -333,7 +333,25 @@ select:active {
 
 .red-button {
     border-color: #f44336;
+    background-color: #fff;
     color: #f44336;
+}
+
+.red-button:hover {
+    color: #f44336;
+    background-color: #eee;
+}
+
+.grey-button {
+    background-color: #ccc;
+    border-color: #ccc;
+}
+
+.grey-button:hover {
+    background-color: #ccc;
+    border-color: #ccc;
+    color: white;
+    cursor: auto;
 }
 
 .bio-textbox {

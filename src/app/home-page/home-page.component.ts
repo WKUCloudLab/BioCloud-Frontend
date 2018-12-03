@@ -199,10 +199,8 @@ export class HomePageComponent implements OnInit {
     */
 
     var testInputs = [
-      "F1_F2_test1.txt",
-      "F1_test2.txt",
-      "F2_test3.txt",
-      "test4.txt",
+      "BIO103_TestFile.fastq",
+      "TestFile.factq",
     ];
     var testArray = [];
 

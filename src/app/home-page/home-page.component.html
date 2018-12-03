@@ -55,10 +55,16 @@
               <span class="bio-item margin-small right half">{{ job.began }}</span>
               <span class="clear"></span>
             </div>
+
             <div class="bio-card-divider"></div>
 
             <div class="bio-row">
-              <button class="bio-button margin-small right" routerLink="/view-job" routerLinkActive="active">View Job</button>
+              <div *ngIf="job.status == 'Complete'">
+                <button class="bio-button margin-small right" routerLink="/view-job" routerLinkActive="active">View Job</button>
+              </div>
+              <div *ngIf="job.status != 'Complete'">
+                <button class="bio-button grey-button margin-small right">View Job</button>
+              </div>
             </div>
           </div>
         </ng-container>
