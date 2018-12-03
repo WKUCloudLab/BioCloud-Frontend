@@ -16,7 +16,7 @@ export class BioRouterService {
     return new Promise((resolve) => {
       var url = 'http://192.168.1.100:3001/'+route;
 
-      this.http.post( url, sendItems )
+      this.http.post( url, sendItems , {headers:{'Content-Type':'application/json'}})
         .subscribe(response => {
           resolve(response);
         },(err) => {

@@ -573,7 +573,8 @@ export class CreateJobComponent implements OnInit {
       var url = 'http://192.168.1.100:3001/createJob';
 
       http.open("POST", url, true);
-      http.setRequestHeader("Content-type", "application/json");
+      // http.withCredentials = true;
+      http.setRequestHeader("Content-Type", "application/json");
       http.onload = function() {
           console.log(this.responseText);
           //var response = JSON.parse(this.responseText);
