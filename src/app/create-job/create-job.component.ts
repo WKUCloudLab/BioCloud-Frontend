@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BioRouterService } from '../bio-router.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-job',
@@ -208,7 +209,7 @@ export class CreateJobComponent implements OnInit {
               argument: "aligner1",
               name: "Bowtie 2 Aligner",
               basicDescription: "",
-              advancedDescription: "Aligns a set of unpaired reads to the Lambda phage reference genome using an index. The alignment results in SAM format are written to the file result.sam.",
+              advancedDescription: "Ali    private router: Router,ds to the Lambda phage reference genome using an index. The alignment results in SAM format are written to the file result.sam.",
               inputType: "boolean",
               placeholder: null,
               dependencies: null,
@@ -261,6 +262,7 @@ export class CreateJobComponent implements OnInit {
 
   constructor(
     public serverRouter: BioRouterService,
+    private router: Router,
   ) { 
     this.getFiles();
   }
@@ -589,6 +591,7 @@ export class CreateJobComponent implements OnInit {
 
       this.serverRouter.post('jobs/create', sendItems).then( (response) => {
         console.log('Success!');
+        this.router.navigate(['home-page']);
         console.log(response['message']);
         
       });
