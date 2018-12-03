@@ -19,7 +19,7 @@
           <span class="bio-sub-card-container-empty">You have no active jobs</span>
         </ng-container>
         <ng-container *ngFor="let job of jobs">
-          <div class="bio-sub-card" *ngIf="job.status != 'Complete'">
+          <div class="bio-sub-card">
             <div class="bio-item block margin-small"> 
               <span class="bio-item left bold"> {{ job.name }} </span>
               <span class="bio-item right bold"> 
@@ -27,6 +27,9 @@
                   {{ job.status }}
                 </div>
                 <div class="green" *ngIf="job.status == 'In Process'">
+                  {{ job.status }}
+                </div>
+                <div class="green" *ngIf="job.status == 'Complete'">
                   {{ job.status }}
                 </div>
               </span>
@@ -38,25 +41,24 @@
 
             <div class="bio-row">
               <span class="bio-item margin-small left third left-text">Script:</span>
-              <span class="bio-item margin-small right half">{{ job.scriptId }}</span>
+              <span class="bio-item margin-small right half">{{ job.script }}</span>
               <span class="clear"></span>
             </div>
             <div class="bio-row">
               <span class="bio-item margin-small left third left-text">File:</span>
-              <span class="bio-item margin-small right half" *ngIf="job.file != null">{{ job.file }}</span>
-              <span class="bio-item margin-small right half" *ngIf="job.file == null"> <i>Unknown</i> </span>
+              <span class="bio-item margin-small right half" *ngIf="job.file != null"> <i>{{ job.file }}</i> </span>
+              <span class="bio-item margin-small right half" *ngIf="job.file == null"> <i>TestFile.fastq</i> </span>
               <span class="clear"></span>
             </div>
             <div class="bio-row">
               <span class="bio-item margin-small left third left-text">Began:</span>
-              <span class="bio-item margin-small right half">{{ job.start }}</span>
+              <span class="bio-item margin-small right half">{{ job.began }}</span>
               <span class="clear"></span>
             </div>
-
             <div class="bio-card-divider"></div>
 
             <div class="bio-row">
-              <button class="bio-button margin-small right">View Job</button>
+              <button class="bio-button margin-small right" routerLink="/view-job" routerLinkActive="active">View Job</button>
             </div>
           </div>
         </ng-container>
@@ -77,6 +79,7 @@
     </div>
 
     <div class="bio-card-content">
+      <!--
       <div class="bio-row small-padding center-text">
         <div class="bio-item full margin-bottom-small center-text">
           <span class="bio-input-label center-text">Storage Usage</span>
@@ -90,6 +93,9 @@
     
       <div class="bio-divider margin-bottom"></div>
 
+      -->
+
+      <!--
       <div class="bio-sub-card-container">
         <ng-container *ngIf="files.length == 0">
           <span class="bio-sub-card-container-empty">You have no active files</span>
@@ -101,7 +107,7 @@
             <span class="clear"></span>
             <div class="bio-card-divider"></div>
             <span class="bio-item margin-small left">Size: {{ file.size }} bytes</span>
-            <span class="bio-item left">Uploaded: {{ file.createdAt }}</span>
+            <span class="bio-item margin-small left">Uploaded: {{ file.uploaded }}</span>
           </div>
         </ng-container>
 
@@ -110,21 +116,10 @@
     
       <div class="bio-divider margin-bottom"></div>
 
+      -->
+
       <div class="bio-file-structure-container">
-        <ng-container *ngIf="fileStructure != null">
-            <file-structure [structure]="fileStructure"></file-structure>
-          
-        </ng-container>
-        <!--
-        <accordion [closeOthers]="false">
-          <accordion-group>
-            <accordion-heading>
-              Custom heading
-            </accordion-heading>
-            Its all about me.
-          </accordion-group>
-        </accordion>
-        -->
+        <file-structure [structure]="fileStructure"></file-structure>
       </div>
     
       <div class="bio-divider margin-bottom"></div>

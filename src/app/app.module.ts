@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
 import { AccordionModule } from "ngx-accordion";
+import { NgDragDropModule } from 'ng-drag-drop';
 
 import { RouterModule, Routes } from '@angular/router';
 
@@ -15,6 +16,7 @@ import { LoginComponent } from './login/login.component';
 import { CreateJobComponent } from './create-job/create-job.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
+import { ViewJobComponent } from './view-job/view-job.component';
 
 import { BioRouterService } from './bio-router.service';
 import { AuthService } from './auth.service';
@@ -31,6 +33,7 @@ const appRoutes: Routes = [
   { path: 'home-page', component: HomePageComponent },
   { path: 'create-job', component: CreateJobComponent },
   { path: 'upload', component: FileUploadComponent },
+  { path: 'view-job', component: ViewJobComponent },
 ];
 
 @NgModule({
@@ -41,12 +44,14 @@ const appRoutes: Routes = [
     CreateJobComponent,
     HomePageComponent,
     FileUploadComponent,
-    FileStructureBuilderComponent
+    FileStructureBuilderComponent,
+    ViewJobComponent,
   ],
   imports: [
     RouterModule.forRoot(
       appRoutes,
     ),
+    NgDragDropModule.forRoot(),
     FormsModule,
     HttpModule,
     HttpClientModule,

@@ -21,9 +21,12 @@
     "@angular/platform-browser-dynamic": "^6.1.0",
     "@angular/router": "^6.1.0",
     "@auth0/angular-jwt": "^2.0.0",
+    "angular-drag-and-drop-lists": "^2.1.0",
     "core-js": "^2.5.4",
     "multer": "^1.4.1",
+    "ng-drag-drop": "^5.0.0",
     "ngx-accordion": "0.0.17",
+    "ngx-drag-and-drop-lists": "^1.2.5",
     "npm": "^6.4.1",
     "rxjs": "~6.2.0",
     "zone.js": "~0.8.26"

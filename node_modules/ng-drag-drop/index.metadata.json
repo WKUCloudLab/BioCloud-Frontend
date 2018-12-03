@@ -1,0 +1,1 @@
+[{"__symbolic":"module","version":4,"metadata":{},"exports":[{"from":"./src/ng-drag-drop.module","export":["NgDragDropModule"]},{"from":"./src/shared/drop-event.model","export":["DropEvent"]}]}]

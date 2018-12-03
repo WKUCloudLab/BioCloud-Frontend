@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BioRouterService } from '../bio-router.service';
 import { FileUploadComponent } from '../file-upload/file-upload.component';
+
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
@@ -48,6 +49,7 @@ export class HomePageComponent implements OnInit {
       size: '2064',
     },
   ];
+
   storageUsed = 0;
 
   constructor(
@@ -69,13 +71,22 @@ export class HomePageComponent implements OnInit {
     }
 
     this.serverRouter.post('jobs/jobsList', sendItems).then( (response) => {
-      /*
+      
       console.log("Jobs List:");
       console.log(response);
-      */
+      
 
       if(response['status'] == true){
         var jobsList = [];
+
+        jobsList.push({
+          id: 0,
+          name: null, // Need to record Job Name
+          script: 'FastQC',
+          file: 'TestFile.fastq', // Need to record File in Job
+          began: '12/2/18',
+          status: "Complete",
+        });
 
         for(var x in response['message']) {
           var job = response['message'][x];
@@ -102,6 +113,7 @@ export class HomePageComponent implements OnInit {
         }
 
         this.jobs = jobsList;
+        console.log(this.jobs);
       } else {
 
     this.serverRouter.post('jobs/jobsList', token).then( (response) => {
@@ -115,7 +127,7 @@ export class HomePageComponent implements OnInit {
 }
 
 
-  getFiles = ()=> {
+  getFiles() {
     var token = localStorage.getItem('access_token');
 
     var sendItems = {
@@ -151,25 +163,29 @@ export class HomePageComponent implements OnInit {
 
         this.filesSizeTotal = fileSize;
         this.files = filesList;
+        //console.log(this.files);
       } else {
 
       }
     });
   }
 
-  fileChangeEvent = (fileInput: any)=>{
+  fileChangeEvent(fileInput: any) {
     this.fileToUpload = <File> fileInput.target.files[0];
 
     this.serverRouter.upload(this.fileToUpload).then( (result) => {
       console.log(result);
+      this.getFiles();
     }, (error) => {
       console.error(error);
     });
   }
   
-  buildDirectory = ()=> {
+  buildDirectory() {
     var root = {
-      name: 'root',
+      name: localStorage.getItem('username'),
+      root: true,
+      isOpen: false,
       folders: [],
       files: [],
     }
@@ -183,10 +199,10 @@ export class HomePageComponent implements OnInit {
     */
 
     var testInputs = [
-      "F1_F2_test.txt",
-      "F1_test.txt",
-      "F2_test.txt",
-      "test.txt",
+      "F1_F2_test1.txt",
+      "F1_test2.txt",
+      "F2_test3.txt",
+      "test4.txt",
     ];
     var testArray = [];
 
@@ -209,6 +225,8 @@ export class HomePageComponent implements OnInit {
             //console.log('NEW FOLDER: '+testArray[x][y]+' in '+targetFolder.name);
             targetFolder.folders.push({
               name: testArray[x][y],
+              root: false,
+              isOpen: false,
               folders: [],
               files: [],
             });
@@ -229,10 +247,51 @@ export class HomePageComponent implements OnInit {
       }
     }
 
-    //console.log(root);
+    console.log(root);
     this.fileStructure = root;
   }
 
-  ngOnInit = ()=> {
+  deleteFile(file) {
+    console.log(file);
+
+    // Send deleteFile request to backend.
+    //    -Submit FileId.
+    // Update directory from return.
+  }
+
+  moveFile(file, newFolder) {
+    console.log(file);
+    console.log(newFolder);
+
+    // Send moveFile request to backend.
+    //    -Submit FileId and new FileName.
+    // Update directory from return.
+  }
+
+  runJob(file) {
+    console.log(file);
+  }
+
+  createFolder(folder) {
+    console.log(folder);
+
+    // Send createFolder request to backend.
+    //    -Submit folderName. ("F1/F2/null")
+    // Update directory from return.
+  }
+
+  renameFolder(folder) {
+    console.log(folder);
+  }
+
+  deleteFolder(folder) {
+    console.log(folder);
+
+    // Send deleteFolder request to backend.
+    //    -Submit FileId
+    // Update directory from return.
+  }
+
+  ngOnInit = () => {
   }
 }

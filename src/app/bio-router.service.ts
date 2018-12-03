@@ -67,6 +67,7 @@ export class BioRouterService {
       xhr.onload = function () {
           if (xhr.readyState === xhr.DONE) {
               if (xhr.status === 200) {
+                resolve();
                   //console.log(xhr.response);
                   //console.log(xhr.responseText);
               }

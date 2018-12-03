@@ -564,7 +564,10 @@ export class CreateJobComponent implements OnInit {
     } else {
       this.receiptError = null;
 
-      var sendObject = {
+      var token = localStorage.getItem('access_token');
+
+      var sendItems = {
+        token: token,
         jobsList: [],
       };
 
@@ -574,7 +577,7 @@ export class CreateJobComponent implements OnInit {
           fileID = this.activeFile.id;
         }
 
-        sendObject.jobsList.push({
+        sendItems.jobsList.push({
           name: "Test",
           entry: this.jobStages[x].entry,
           options: this.jobStages[x],
@@ -584,40 +587,11 @@ export class CreateJobComponent implements OnInit {
         });
       }
 
-      console.log("Job Submitted"); 
-
-      var http = new XMLHttpRequest();
-      var url = 'http://192.168.1.100:3001/jobs/create';
-
-      http.open("POST", url, true);
-      http.setRequestHeader("Content-type", "application/json");
-      http.onload = function() {
-          console.log(this.responseText);
-          //var response = JSON.parse(this.responseText);
-
-          //console.log(response);
-          /*
-          if(response['status'] == "success"){
-              console.log('Success!');
-              console.log(response['message']);
-
-              var newDistance = 0;
-              for(var x = 0; x < response['message'].length; x++) {
-                  newDistance += response['message'][x].miles;
-              }
-              currentDistance = newDistance;
-
-              updateStats('general', response['message'], currentDistance);
-              updateProgressBar();
-          } else {
-              console.log('Failure!');
-              console.log(response['message']);
-          }
-          */
-      }
-
-      console.log(sendObject);
-      http.send(JSON.stringify(sendObject));
+      this.serverRouter.post('jobs/create', sendItems).then( (response) => {
+        console.log('Success!');
+        console.log(response['message']);
+        
+      });
     }
   }
 
