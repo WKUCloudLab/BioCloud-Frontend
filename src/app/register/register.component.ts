@@ -8,7 +8,7 @@ import { BioRouterService } from '../bio-router.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  title = 'Bio-Cloud';
+  title = 'BioCloud';
   username = '';
   email = '';
   firstName = '';
@@ -25,11 +25,15 @@ export class RegisterComponent implements OnInit {
 
   }
 
-  ngOnInit() {
-  }
-
   register() {
-    if(this.username != '' && this.password != ''){
+    if(
+      this.username != '' && 
+      this.email != '' && 
+      this.firstName != '' && 
+      this.lastName != '' && 
+      this.password != '' &&
+      this.passwordConfirmed != '' 
+    ){
       if(this.password == this.passwordConfirmed){
         this.error = null;
 
@@ -46,17 +50,20 @@ export class RegisterComponent implements OnInit {
             this.router.navigate(['']);
           } else {
             if(response['message'] == "USERNAME_EMAIL_UNAVAILABLE") {
-              this.error = "Username or Email is already in use."
+              this.error = "Username or Email is already in use.";
             } else {
               this.error = response['message'];
             }
           }
         });
       } else {
-        this.error = "Password and Confirmation do not match."
+        this.error = "Passwords do not match.";
       }
     } else {
-      this.error = "Username and Password cannot be empty."
+      this.error = "Please complete the entire form before submitting.";
     }
+  }
+
+  ngOnInit() {
   }
 }

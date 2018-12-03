@@ -24,12 +24,13 @@ body {
 }
 
 select {
+    width: 100%;
     cursor: pointer;
     font-family: 'Roboto', sans-serif;
-    background-color: #00ace6;
+    background-color: #00BFFF;
     color: #fff;
     border: 0;
-    padding: 10px;
+    height: 35px;
 }
 select:after {
     transition: all 0.2s ease-in;
@@ -43,7 +44,7 @@ select:after {
 }
 select:hover {
     transition: all 0.2s ease-in;
-    background-color: #00ace6;
+    background-color: #00BFFF;
     border: 0;
 }
 select:active {
@@ -84,6 +85,11 @@ select:active {
     vertical-align: bottom !important;
 }
 
+.margin-center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .right {
     float: right;
 }
@@ -102,15 +108,15 @@ select:active {
 }
 
 .red {
-    background-color: #bd2020;
+    color: #bd2020;
 }
 
-.yellow {
-    background-color: #f1ff20;
+.orange {
+    color: #ca9b29;
 }
 
 .green {
-    background-color: #1d731d;
+    color: #227d22;
 }
 
 /*
@@ -127,6 +133,12 @@ select:active {
 
 .half {
     width: 50%;
+}
+
+.half-margin {
+    width: calc(50% - 10px);
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 .two-thirds {
@@ -173,6 +185,7 @@ select:active {
     -webkit-box-shadow: 0px 2px 1px 1px rgba(0,0,0,0.2);
     -moz-box-shadow: 0px 2px 1px 1px rgba(0,0,0,0.2);
     box-shadow: 0px 2px 1px 1px rgba(0,0,0,0.2);
+    z-index: 99;
 }
 
 .bio-navbar-title {
@@ -238,14 +251,15 @@ select:active {
 
 .bio-divide-header {
     display: block;
-    height: 7px;
+    height: 8px;
     width: 100%;
     color: #555;
-    font-size: 14px;
+    font-size: 16px;
     text-align: center;
-    font-weight: 500;
-    border-bottom: 2px solid #aaa;
-    margin-bottom: 17px;
+    font-weight: 600;
+    border-bottom: 2px solid #999;
+    margin-bottom: 20px;
+
 }
 .bio-divide-header span {
     background-color: #fff;
@@ -254,29 +268,60 @@ select:active {
 
 .bio-paragraph {
     font-size: 14px;
+    margin: 0;
 }
 
 .bio-input-label {
     display: block;
-    width: calc(100% - 20px);
-    padding: 0 10px;
-    text-align: right;
-    color: #666;
+    width: 100%;
+    color: #333;
     font-size: 16px;
     font-weight: 500;
 }
 
 .bio-button {
     border-radius: 3px;
-    border: 2px solid #00ace6;
-    color: #00ace6;
+    border: 2px solid #00BFFF;
+    color: #fff;
     padding: 8px 16px;
     font-size: 14px;
-    font-weight: 500;
-    background-color: #fff;
+    font-weight: 600;
+    background-color: #00BFFF;
 }
 
 .bio-button:hover {
+    cursor: pointer;
+    background-color: #fff;
+    color: #00BFFF;
+}
+
+.bio-button-inverse {
+    border-radius: 3px;
+    border: 2px solid #00BFFF;
+    color: #00BFFF;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    background-color: #fff;
+}
+
+.bio-button-inverse:hover {
+    cursor: pointer;
+    background-color: #00BFFF;
+    color: #fff;
+}
+
+.bio-button-minor {
+    border-radius: 3px;
+    border: 2px solid transparent;
+    color: #666;
+    padding: 8px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    background-color: transparent;
+}
+
+.bio-button-minor:hover {
     cursor: pointer;
     background-color: #eee;
 }
@@ -288,17 +333,39 @@ select:active {
 
 .red-button {
     border-color: #f44336;
+    background-color: #fff;
     color: #f44336;
+}
+
+.red-button:hover {
+    color: #f44336;
+    background-color: #eee;
+}
+
+.grey-button {
+    background-color: #ccc;
+    border-color: #ccc;
+}
+
+.grey-button:hover {
+    background-color: #ccc;
+    border-color: #ccc;
+    color: white;
+    cursor: auto;
 }
 
 .bio-textbox {
     border: 0;
     border-bottom: 1px solid #aaa;
+    background-color: #fff;
     width: calc(100% - 20px);
-    height: 40px;
     font-size: 16px;
-    padding: 0 10px;
-    color: #555;
+    padding: 8px 10px;
+    color: #333;
+}
+
+.bio-textbox::placeholder {
+    color: #aaa;
 }
 
 .bio-textbox:focus {
@@ -334,6 +401,10 @@ select:active {
     margin-bottom: 20px !important;
 }
 
+.margin-bottom-small {
+    margin-bottom: 5px !important;
+}
+
 .soft-margin {
     margin: 2px;
 }
@@ -355,6 +426,15 @@ select:active {
     border: 2px solid #ccc;
 }
 
+.bio-link {
+    color: #00BFFF;
+    font-weight: 500;
+}
+
+.bio-link:hover {
+    cursor: pointer;
+}
+
 /*
     Bio Cards
 */
@@ -362,6 +442,7 @@ select:active {
 .bio-card {
     display: block;
     height: auto;
+    margin: 0 auto;
     margin-bottom: 10px;
     overflow: hidden;
     border-radius: 3px;
@@ -374,7 +455,7 @@ select:active {
 .bio-sub-card {
     display: inline-block;
     height: auto;
-    max-width: calc(270px - 20px);
+    width: calc(270px - 16px);
     margin: 5px;
     overflow: hidden;
     border-radius: 1px;
@@ -393,9 +474,19 @@ select:active {
     padding: 10px 30px;
 }
 
+.login-content {
+    padding: 40px;
+}
+
 .bio-card-footer {
+    border-top: 1px solid #ccc;
     background-color: #eee;
     padding: 10px;
+}
+
+.login-footer {
+    padding: 20px 40px;
+    font-size: 14px;
 }
 
 .bio-card-divider {
@@ -412,12 +503,130 @@ select:active {
     box-shadow: inset 0px 0px 32px 0px rgba(0,0,0,0.05);
 }
 
+.bio-sub-card-container-empty {
+    display: block;
+    width: calc(100% - 20px);
+    text-align: center;
+    margin: 20px 10px; 
+    color: #444;
+}
+
+.card-thin {
+    max-width: 400px !important;
+}
+
+.bio-file-structure-container {
+    text-align: left;
+    background-color: #eee;
+    border: 1px solid #ccc;
+    box-shadow: inset 0px 0px 32px 0px rgba(0,0,0,0.05);
+}
+
+.bio-accordian h4 {
+    margin: 0 !important;
+}
+
+.bio-accordian-header {
+    display: block;
+    /*padding: 5px;*/
+    background-color: #ddd;
+    width: calc(100% - 2px);
+    border: 1px solid #ccc;
+}
+
+.bio-accordian-clickable {
+    position: absolute;
+    display: block; 
+    width: 100%;
+    height: 30px;
+}
+
+.bio-accordian-title {
+    padding: 5px;
+}
+
+.bio-accordian-content {
+    padding-left: 15px;
+    border-left: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    background-color: #eee;
+    /*margin-left: 15px;*/
+}
+
+.bio-accordian-content-dark {
+    background-color: #ddd;
+    /*margin-left: 15px;*/
+}
+
+.bio-accordian-icon {
+    width: 19px;
+    text-align: center;
+}
+
+.bio-accordian-button {
+    padding: 5px;
+}
+
+.bio-accordian-button:hover {
+    background-color: #ddd;
+    cursor: pointer;
+}
+
+.bio-dropdown {
+    position: relative;
+    padding: 5px;
+    padding-bottom: 0px;
+}
+
+.bio-dropdown-button {
+    display: block;
+    padding-bottom: 5px;
+}
+
+.bio-dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+.bio-dropdown-content a {
+    color: black;
+    font-weight: 500;
+    font-size: 15px;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+.bio-dropdown-content a:hover {
+    cursor: pointer;
+    background-color: #f1f1f1;
+}
+
+.bio-dropdown:hover .bio-dropdown-content {
+    display: block !important;
+}
+
+.bio-dropdown:hover {
+    background-color: #ccc;
+}
+
+.bio-job-image {
+    width: 100%;
+    -webkit-box-shadow: 0px 0px 1px 1px rgba(0,0,0,0.2);
+    -moz-box-shadow: 0px 0px 1px 1px rgba(0,0,0,0.2);
+    box-shadow: 0px 0px 1px 1px rgba(0,0,0,0.2);
+}
+
 @media (max-width: 620px) {
     .bio-sub-card-container {
         text-align: center;
     }
 
     .bio-sub-card {
-        max-width: 100%;
+        width: calc(100% - 14px);
+        max-width: 270px;
     }
 }

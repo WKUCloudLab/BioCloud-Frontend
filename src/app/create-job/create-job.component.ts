@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { BioRouterService } from '../bio-router.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-job',
@@ -10,7 +12,7 @@ export class CreateJobComponent implements OnInit {
   stageTracker = 1;
   stageLength = 4;
 
-  jobName = "Untitled";
+  jobName = "";
 
   activeWindow = "Job Receipt";
   activeFile = null;
@@ -49,6 +51,9 @@ export class CreateJobComponent implements OnInit {
   ];  
   */
 
+  files = [];
+
+  /*
   files = [
     {
       id: '1',
@@ -58,6 +63,7 @@ export class CreateJobComponent implements OnInit {
       created: "2016-03-03 01:01:01"
     },
   ];
+  */
 
   templates = [];
 
@@ -69,6 +75,8 @@ export class CreateJobComponent implements OnInit {
       basicDescription: "FastQC is a Biotool used for verifying raw sequencing data.",
       advancedDescription: "FastQC aims to provide a simple way to do some quality control checks on raw sequence data coming from high throughput sequencing pipelines. It provides a modular set of analyses which you can use to give a quick impression of whether your data has any problems of which you should be aware before doing any further analysis.",
       fileTypes: [
+        "bam",
+        "sam",
         "fastq",
       ],
       commands:[
@@ -77,6 +85,11 @@ export class CreateJobComponent implements OnInit {
           name: null,
           basicDescription: null,
           advancedDescription: null,
+          fileTypes: [
+            "bam",
+            "sam",
+            "fastq",
+          ],
           requiredArguments:[
 
           ],
@@ -196,7 +209,7 @@ export class CreateJobComponent implements OnInit {
               argument: "aligner1",
               name: "Bowtie 2 Aligner",
               basicDescription: "",
-              advancedDescription: "Aligns a set of unpaired reads to the Lambda phage reference genome using an index. The alignment results in SAM format are written to the file result.sam.",
+              advancedDescription: "Ali    private router: Router,ds to the Lambda phage reference genome using an index. The alignment results in SAM format are written to the file result.sam.",
               inputType: "boolean",
               placeholder: null,
               dependencies: null,
@@ -246,7 +259,13 @@ export class CreateJobComponent implements OnInit {
     },
   ];
 
-  constructor() { }
+
+  constructor(
+    public serverRouter: BioRouterService,
+    private router: Router,
+  ) { 
+    this.getFiles();
+  }
 
   ngOnInit() {
   }
@@ -547,7 +566,10 @@ export class CreateJobComponent implements OnInit {
     } else {
       this.receiptError = null;
 
-      var sendObject = {
+      var token = localStorage.getItem('access_token');
+
+      var sendItems = {
+        token: token,
         jobsList: [],
       };
 
@@ -557,7 +579,7 @@ export class CreateJobComponent implements OnInit {
           fileID = this.activeFile.id;
         }
 
-        sendObject.jobsList.push({
+        sendItems.jobsList.push({
           name: "Test",
           entry: this.jobStages[x].entry,
           options: this.jobStages[x],
@@ -567,45 +589,57 @@ export class CreateJobComponent implements OnInit {
         });
       }
 
-      console.log("Job Submitted"); 
-
-      var http = new XMLHttpRequest();
-      var url = 'http://192.168.1.100:3001/createJob';
-
-      http.open("POST", url, true);
-      // http.withCredentials = true;
-      http.setRequestHeader("Content-Type", "application/json");
-      http.onload = function() {
-          console.log(this.responseText);
-          //var response = JSON.parse(this.responseText);
-
-          //console.log(response);
-          /*
-          if(response['status'] == "success"){
-              console.log('Success!');
-              console.log(response['message']);
-
-              var newDistance = 0;
-              for(var x = 0; x < response['message'].length; x++) {
-                  newDistance += response['message'][x].miles;
-              }
-              currentDistance = newDistance;
-
-              updateStats('general', response['message'], currentDistance);
-              updateProgressBar();
-          } else {
-              console.log('Failure!');
-              console.log(response['message']);
-          }
-          */
-      }
-
-      console.log(sendObject);
-      http.send(JSON.stringify(sendObject));
+      this.serverRouter.post('jobs/create', sendItems).then( (response) => {
+        console.log('Success!');
+        this.router.navigate(['home-page']);
+        console.log(response['message']);
+        
+      });
     }
   }
 
   removeStage(i) {
     this.jobStages.splice(i, 2);
+  }
+
+  getFiles() {
+    var token = localStorage.getItem('access_token');
+
+    var sendItems = {
+      token: token,
+    }
+
+    this.serverRouter.post('files/filesList', sendItems).then( (response) => {
+      /*
+      console.log("Files List:");
+      console.log(response);
+      */
+
+      if(response['status'] == true){
+        var filesList = [];
+        var fileSize = 0;
+
+        for(var x in response['message']) {
+          var file = response['message'][x];
+
+          var start = new Date(file["createdAt"]);
+
+          filesList.push({
+            id: file["id"],
+            name: file["name"],
+            type: file["filetype"],
+            size: file["size"],
+            path: file['path'],
+            created: start.getMonth()+"/"+start.getDate()+"/"+start.getFullYear(),
+          });
+
+          fileSize += file["size"];
+        }
+
+        this.files = filesList;
+      } else {
+
+      }
+    });
   }
 }
