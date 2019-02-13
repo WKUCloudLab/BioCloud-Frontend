@@ -27,7 +27,7 @@
     "ng-drag-drop": "^5.0.0",
     "ngx-accordion": "0.0.17",
     "ngx-drag-and-drop-lists": "^1.2.5",
-    "npm": "^6.4.1",
+    "npm": "^6.7.0",
     "rxjs": "~6.2.0",
     "zone.js": "~0.8.26"
   },
