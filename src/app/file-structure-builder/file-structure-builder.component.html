@@ -1,0 +1,59 @@
+<accordion [closeOthers]="false">
+    <accordion-group class="bio-accordian" (onToggle)="toggleFolder(structure)">
+      <accordion-heading class="bio-accordian-header">
+        <accordion-toggle class="bio-accordian-clickable">
+          <div class="bio-accordian-title left">
+            <ng-container *ngIf="structure.isOpen == false">
+              <i class="fa fa-folder bio-accordian-icon" aria-hidden="true"></i> 
+            </ng-container>
+            <ng-container *ngIf="structure.isOpen == true">
+              <i class="fa fa-folder-open bio-accordian-icon" aria-hidden="true"></i> 
+            </ng-container>
+            {{ structure.name }}
+          </div>
+        </accordion-toggle>
+
+        <div class="bio-accordian-icon right bio-dropdown">
+          <span class="bio-dropdown-button">
+            <i class="fa fa-bars bio-accordian-icon" aria-hidden="true"></i>
+          </span>
+          <div class="bio-dropdown-content">
+            <a (click)="hp.createFolder(structure)">Create SubFolder</a>
+            <ng-container *ngIf="structure.root == false">
+            <!--
+            <a (click)="hp.renameFolder(structure)">Rename Folder</a>
+            -->
+            <a (click)="hp.deleteFolder(structure)">Delete Folder</a>
+            </ng-container>
+          </div>
+        </div>
+
+        <div style="clear: both"></div>
+      </accordion-heading>
+      <div class="bio-accordian-content" droppable [dragOverClass]="'bio-accordian-content-dark'">
+        <div *ngFor="let folder of structure.folders" draggable>
+          <file-structure [structure]="folder"></file-structure>
+        </div>
+        <div *ngFor="let file of structure.files" draggable>
+          <div class="bio-file-structure-file">
+            <div class="bio-accordian-title left">
+              <i class="fa fa-file bio-accordian-icon" aria-hidden="true"></i> 
+              {{ file.name }}
+            </div>
+          </div>
+
+          <div class="bio-accordian-icon right bio-accordian-button" (click)="hp.deleteFile(file)">
+            <i class="fa fa-trash" aria-hidden="true"></i>
+          </div>
+
+          <!--
+          <div class="bio-accordian-icon right bio-accordian-button" (click)="hp.runJob(file)">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+          </div>
+          -->
+
+          <div style="clear: both"></div>
+        </div>
+      </div>
+    </accordion-group>
+</accordion>
