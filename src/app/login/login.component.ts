@@ -33,6 +33,8 @@ export class LoginComponent implements OnInit {
     if(this.username != '' && this.password != ''){
       this.error = null;
 
+      // Validate this.username .password here for invalid characters.
+      // If fail, this.error = "Username or Password contains invalid characters";
       this.auth.login(this.username, this.password)
       .pipe(first())
       .subscribe(
